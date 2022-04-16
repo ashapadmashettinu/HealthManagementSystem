@@ -1,4 +1,58 @@
+-- Encrypt Table Columns
+-- Demo different data types
+-- Create New DB
+CREATE DATABASE HMS;
+
+USE HMS;
+
+-- Create DMK
+CREATE MASTER KEY
+ENCRYPTION BY PASSWORD = 'hms_team4';
+
+-- Create certificate to protect symmetric key
+CREATE CERTIFICATE HMSCertificate
+WITH SUBJECT = 'HMS Test Certificate',
+EXPIRY_DATE = '2026-10-31';
+
+-- Create symmetric key to encrypt data
+CREATE SYMMETRIC KEY HMSSymmetricKey
+WITH ALGORITHM = AES_128
+ENCRYPTION BY CERTIFICATE HMSCertificate;
+
+-- Open symmetric key
+OPEN SYMMETRIC KEY HMSSymmetricKey
+DECRYPTION BY CERTIFICATE HMSCertificate;
+-- Create a demo table
+-- Use VARBINARY as the data type for the encrypted column
+
+
 USE HMS
+
+
+Create table Address 
+	(AddressID int not null primary key,
+	Street varchar(255) not null,
+	AddressLine2 varchar(255) not null,
+	City varchar(255) not null,
+	State varchar(255) not null,
+	Country varchar(255) not null,
+	ZipCode int not null,
+	PhoneNumber int not null,
+	EmailID varchar(255) not null)
+
+
+Create table PatientAddress 
+	(AddressID int not null primary key,
+	Street varchar(255) not null,
+	AddressLine2 varchar(255) not null,
+	City varchar(255) not null,
+	State varchar(255) not null,
+	Country varchar(255) not null,
+	ZipCode int not null,
+	PhoneNumber int not null,
+	EmailID varchar(255) not null)
+
+
 create Table PatientPersonalInfo
 	(PatientID int not null primary key,
 	VerificationID int not null,  -- primary key Must be unique
@@ -48,7 +102,10 @@ Create Table LoginSessions
 	)
 
 ------------------------
+-- Above all are done
+-- Pending 
 -------------------------
+
 Create Table PharmacyLookup
 	(PharmacyID int not null primary key,
 	PharmacyName varchar(255) not null,
@@ -60,8 +117,8 @@ Create Table PharmacyLookup
 
 	
 Create Table PatientWishlistPharmacy
-	(Foreign key(PatientID) references PatientPersonalInfo(PatientID),
-	Foreign key(PharmacyID) references PharmacyLookup(PharmacyID))
+	PatientID int Foreign key references PatientPersonalInfo(PatientID),
+	PharmacyID references PharmacyLookup(PharmacyID))
 	
 Create table PatientPrimaryContact
 	(Foreign key(PatientID) references PatientPersonalInfo(PatientID),
@@ -94,7 +151,7 @@ create table PatientAllergies
 
 	
 Create table Appointments
-	(AppointmentID int is not null primary key,
+	(AppointmentID int not null primary key,
 	 Foreign key(PatientID) references PatientPersonalInfo(PatientID),
 	 Foreign key(DoctorID) references DoctorInfo(DoctorID),
 	 Foreign key(AppointmentTypeID) references AppointmentType(AppointmentTypeID),
@@ -138,28 +195,6 @@ Create Table Specialization
 	(SpecializationID int not null primary key,
 	 SpecializationName varchar(255) not null)
 
-Create table Address 
-	(AddressID int not null primary key,
-	Street varchar(255) not null,
-	AddressLine2 varchar(255) not null,
-	City varchar(255) not null,
-	State varchar(255) not null,
-	Country varchar(255) not null,
-	ZipCode int not null,
-	PhoneNumber int not null,
-	EmailID varchar(255) not null)
-
-
-	Create table PatientAddress 
-	(AddressID int not null primary key,
-	Street varchar(255) not null,
-	AddressLine2 varchar(255) not null,
-	City varchar(255) not null,
-	State varchar(255) not null,
-	Country varchar(255) not null,
-	ZipCode int not null,
-	PhoneNumber int not null,
-	EmailID varchar(255) not null)
 
 
 

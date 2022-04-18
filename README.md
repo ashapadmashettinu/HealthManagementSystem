@@ -36,14 +36,20 @@ Appointment --All the mentioned can be combined into one trigger/ table level co
     14. Patient (Similarly for Doctor) Cant make 2 or more apointments for the same datetime/There should be some gap between the next appointment and the first. Also considering duration
     One Patient can’t schedule appointment with a doctor who has already been scheduled with another.
      Doctor can see 25 per day
+    
 15. Patient Doctor Admin
     Add age as computational column 
 
 Reports
 ————————————
 16. Patient appointments
+
 17. Doctor Appointments
+
 18. Number of patients with Fever/Obese/Allergies etc.,
+
 19. Number of patients with vs without insurance
+
 20. Busiest Doctor/Number of patients per doctor based on month or year. (This covers the Pivot and horizontal reporting)
+
 21. Top Pharma

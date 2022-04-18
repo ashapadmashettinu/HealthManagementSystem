@@ -168,38 +168,6 @@ Create Table RolesLookup
 	RoleType varchar(255) not null
 	);
 
-Create Table LoginInformation
-	(
-	UserID int not null primary key,
-	Foreign key(UserID) 
-		references PatientPersonalInformation(PatientID),
-	Foreign key(UserID) 
-		references AdminInformation(AdminID),
-	Foreign key(UserID) 
-		references DoctorInformation(DoctorID),
-	password varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
-	RoleID int NOT NULL FOREIGN KEY
-        REFERENCES dbo.RolesLookup(RoleID)
-	);
-
-
-Create Table LoginSessions
-	(
-	SessionID int not null primary key,
-	SessionTime Date  not null,
-	UserID int NOT NULL FOREIGN KEY
-        REFERENCES dbo.LoginInformation(UserID)
-	);
-	
-
-
-Create Table AppointmentType
-	(
-	AppointmentTypeID int not null primary key,
-	AppointmentType varchar(255),
-	DurationMin int
-	);
-
 
 Create table [Address] 
 	(
@@ -236,6 +204,39 @@ Create table DoctorInformation
         REFERENCES dbo.Address(AddressID)
 	);
 
+
+Create Table LoginInformation
+	(
+	UserID int not null primary key,
+	Foreign key(UserID) 
+		references PatientPersonalInformation(PatientID),
+	Foreign key(UserID) 
+		references AdminInformation(AdminID),
+	Foreign key(UserID) 
+		references DoctorInformation(DoctorID),
+	password varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
+	RoleID int NOT NULL FOREIGN KEY
+        REFERENCES dbo.RolesLookup(RoleID)
+	);
+
+
+Create Table LoginSessions
+	(
+	SessionID int not null primary key,
+	SessionTime Date  not null,
+	UserID int NOT NULL FOREIGN KEY
+        REFERENCES dbo.LoginInformation(UserID)
+	);
+	
+
+Create Table AppointmentType
+	(
+	AppointmentTypeID int not null primary key,
+	AppointmentType varchar(255),
+	DurationMin int
+	);
+
+
 Create table Appointments
 	(
 	 AppointmentID int not null primary key,
@@ -250,6 +251,7 @@ Create table Appointments
 	 AppointmentTime Time
 	 );
 	
+	
 Create Table PatientVisitHistory
 	 (
 	 AppointmentID int Foreign key
@@ -261,7 +263,6 @@ Create Table PatientVisitHistory
 	 Height float, 
 	 [Weight] float
 	 );
-
 
 	
 Create Table Specialization

@@ -89,10 +89,9 @@ Create Table PatientInsurance
 
 Create table PatientPrimaryContact
 	(
-	PatientID int 
-	Primary Key (PatientID),
-	Foreign key (PatientID)
-		references PatientPersonalInfo(PatientID),
+	PatientID int NOT NULL Primary Key,
+	Foreign key(PatientID) 
+		references PatientPersonalInformation(PatientID),
 	FullName varchar(255) not null,
 	PhoneNumber int not null
 	);
@@ -112,9 +111,12 @@ Create Table PharmacyLookup
 
 Create Table PatientWishlistPharmacy
     (
-	PatientID int Foreign key 
+	PatientID int NOT NULL,
+	PharmacyID int NOT NULL,
+	PRIMARY KEY CLUSTERED ( PatientID, PharmacyID),
+	Foreign key(PatientID)
 		references PatientPersonalInfo(PatientID),
-	PharmacyID int Foreign key 
+	Foreign key(PharmacyID)
 		references PharmacyLookup(PharmacyID)
 	);
 	
@@ -129,12 +131,14 @@ Create table AllergyTypes
 
 create table PatientAllergies
 	(
-	PatientID int Foreign key 
+	PatientID int NOT NULL,
+	AllergyTypeID int NOT NULL,
+	PRIMARY KEY CLUSTERED ( PatientID, AllergyTypeID),
+	Foreign key(PatientID)
 		references PatientPersonalInfo(PatientID),
-	AllergyTypeID int Foreign key
+	Foreign key(AllergyTypeID)
 		references AllergyTypes(AllergyTypeID)
 	);
-
 
 
 Create Table RolesLookup
@@ -242,9 +246,12 @@ Create Table Specialization
 
 Create table DoctorSpecialization
 	(
-	DoctorID int Foreign key
+	DoctorID int NOT NULL,
+	SpecializationID int NOT NULL,
+	PRIMARY KEY CLUSTERED ( DoctorID, SpecializationID),
+	Foreign key(DoctorID)
 		references DoctorInfo(DoctorID),
-	SpecializationID int Foreign key
+	Foreign key(SpecializationID)
 		references Specialization(SpecializationID)
 	);
 	

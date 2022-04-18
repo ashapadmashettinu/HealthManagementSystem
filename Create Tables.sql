@@ -2,6 +2,7 @@
 -- Demo different data types
 -- Create New DB
 CREATE DATABASE HMS;
+drop database hms
 
 USE HMS;
 
@@ -51,6 +52,20 @@ Create table PatientAddress
 	ZipCode int not null,
 	PhoneNumber int not null,
 	EmailID varchar(255) not null)
+drop table PatientPersonalInformation
+CREATE TABLE [dbo].[PatientPersonalInformation] (
+    [PatientID]      INT           NOT NULL,
+    [VerificationID] INT           NOT NULL,
+    [FirstName]      VARCHAR (255) NOT NULL,
+    [LastName]       VARCHAR (255) NOT NULL,
+    [DOB]            DATE          NOT NULL,
+    [AddressID]      INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([PatientID] ASC, [VerificationID] ASC),
+    FOREIGN KEY ([AddressID]) REFERENCES [dbo].[PatientAddress] ([AddressID]),
+    PRIMARY KEY CLUSTERED ([PatientID] ASC, [VerificationID] ASC),
+    FOREIGN KEY ([AddressID]) REFERENCES [dbo].[PatientAddress] ([AddressID])
+);
+
 
 
 create Table PatientPersonalInfo
@@ -61,6 +76,7 @@ create Table PatientPersonalInfo
 	DOB date not null,
 	AddressID int  NOT NULL FOREIGN KEY
         REFERENCES dbo.PatientAddress(AddressID))
+
 
 
 Create table AdminInformation

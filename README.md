@@ -27,6 +27,7 @@ StoredProcedures
 11. Appointment summary(Patient Visit)
 
 Functions are stopred procedures
+
 12. Doctors appointments
 13. Patient appointments
 

@@ -98,7 +98,6 @@ create Table PatientPersonalInformation
 	);
 
 
-
 Create Table PatientInsurance
 	(
 	InsuranceID int not null IDENTITY primary key,
@@ -204,10 +203,9 @@ Create table DoctorInformation
         REFERENCES dbo.Address(AddressID)
 	);
 
-
 Create Table LoginInformation
 	(
-	UserID int not null IDENTITY primary key,
+	UserID int not null primary key,
 	Foreign key(UserID) 
 		references PatientPersonalInformation(PatientID),
 	Foreign key(UserID) 

@@ -76,19 +76,19 @@ drop table if exists [Address];
 
 Create table PatientAddress 
 	(
-	AddressID int not null primary key,
+	AddressID int not null IDENTITY primary key,
 	Street varchar(255) not null,
 	[State] varchar(255) not null,
 	City varchar(255) not null,
 	ZipCode int not null,
-	PhoneNumber int not null,
-	EmailID varchar(255) not null
+	PhoneNumber BigInt not null,
+	EmailID varchar(255)
 	);
 
 
 create Table PatientPersonalInformation
 	(
-	PatientID int not null primary key,
+	PatientID int not null IDENTITY primary key,
 	VerificationID int not null,  --Must be unique
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
@@ -101,7 +101,7 @@ create Table PatientPersonalInformation
 
 Create Table PatientInsurance
 	(
-	InsuranceID int not null primary key,
+	InsuranceID int not null IDENTITY primary key,
 	PatientID int Foreign key 
 		references PatientPersonalInformation(PatientID),
 	InsuranceProvider varchar(255) not null
@@ -114,19 +114,19 @@ Create table PatientPrimaryContact
 	Foreign key(PatientID) 
 		references PatientPersonalInformation(PatientID),
 	FullName varchar(255) not null,
-	PhoneNumber int not null
+	PhoneNumber BIGINT not null
 	);
 	
 
 Create Table PharmacyLookup
 	(
-	PharmacyID int not null primary key,
+	PharmacyID int not null IDENTITY primary key,
 	PharmacyName varchar(255) not null,
 	PharmacyStreetName varchar(255) not null,
 	PharmacyState varchar(255) not null,
 	PharmacyCity varchar(255) not null,
 	PharmacyZip int not null,
-	ContactNumber int not null
+	ContactNumber BIGINT not null
 	);
 
 
@@ -144,7 +144,7 @@ Create Table PatientWishlistPharmacy
 
 Create table AllergyTypes
 	(
-	AllergyTypeID int not null primary key,
+	AllergyTypeID int not null IDENTITY primary key,
 	Allergyname varchar(255) not null,
 	[Description] varchar(255) not null
 	);
@@ -164,28 +164,28 @@ create table PatientAllergies
 
 Create Table RolesLookup
 	(
-	RoleID Int not null primary key,
+	RoleID Int not null IDENTITY primary key,
 	RoleType varchar(255) not null
 	);
 
 
 Create table [Address] 
 	(
-	AddressID int not null primary key,
+	AddressID int not null IDENTITY primary key,
 	Street varchar(255) not null,
-	AddressLine2 varchar(255) not null,
+	AddressLine2 varchar(255),
 	City varchar(255) not null,
 	State varchar(255) not null,
 	Country varchar(255) not null,
 	ZipCode int not null,
-	PhoneNumber int not null,
-	EmailID varchar(255) not null
+	PhoneNumber BIGINT not null,
+	EmailID varchar(255)
 	);
 
 
 Create table AdminInformation
 	(
-	AdminID int not null primary key,
+	AdminID int not null IDENTITY primary key,
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
 	DOB Date,
@@ -196,7 +196,7 @@ Create table AdminInformation
 
 Create table DoctorInformation
 	(
-	DoctorID int not null primary key,
+	DoctorID int not null IDENTITY primary key,
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
 	DOB date,
@@ -207,7 +207,7 @@ Create table DoctorInformation
 
 Create Table LoginInformation
 	(
-	UserID int not null primary key,
+	UserID int not null IDENTITY primary key,
 	Foreign key(UserID) 
 		references PatientPersonalInformation(PatientID),
 	Foreign key(UserID) 
@@ -222,7 +222,7 @@ Create Table LoginInformation
 
 Create Table LoginSessions
 	(
-	SessionID int not null primary key,
+	SessionID int not null IDENTITY primary key,
 	SessionTime Date  not null,
 	UserID int NOT NULL FOREIGN KEY
         REFERENCES dbo.LoginInformation(UserID)
@@ -231,7 +231,7 @@ Create Table LoginSessions
 
 Create Table AppointmentType
 	(
-	AppointmentTypeID int not null primary key,
+	AppointmentTypeID int not null IDENTITY primary key,
 	AppointmentType varchar(255),
 	DurationMin int
 	);
@@ -239,7 +239,7 @@ Create Table AppointmentType
 
 Create table Appointments
 	(
-	 AppointmentID int not null primary key,
+	 AppointmentID int not null IDENTITY primary key,
 	 PatientID int Foreign key 
 		references PatientPersonalInformation(PatientID),
      DoctorID int Foreign key 
@@ -250,13 +250,12 @@ Create table Appointments
 	 AppointmentDate Date,
 	 AppointmentTime Time
 	 );
-	
 
 Create Table PatientVisitHistory
 	 (
 	 AppointmentID int Foreign key
 		references Appointments(AppointmentID),
-	 Temperature float,
+	 Temperature float Not null,
 	 BloodPressure int, 
 	 HeartRate int, 
 	 RespiratoryRate int,
@@ -267,7 +266,7 @@ Create Table PatientVisitHistory
 	
 Create Table Specialization
 	(
-	SpecializationID int not null primary key,
+	SpecializationID int not null IDENTITY primary key,
 	SpecializationName varchar(255) not null
 	);
 

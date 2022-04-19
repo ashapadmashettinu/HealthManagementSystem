@@ -1,3 +1,5 @@
+USE HMS;
+
 INSERT INTO PharmacyLookup (PharmacyName ,PharmacyStreetName ,PharmacyState ,PharmacyCity ,PharmacyZip ,ContactNumber)
 VALUES
     ('CVS', '91 Seaport Blvd', 'MA', 'Boston', '02210', '8573504646'),
@@ -52,18 +54,18 @@ VALUES
     ('1016', '2'),
     ('1018', '1');
 	
-INSERT INTO AllergyTypes(AllergyTypeId,AllergyName,Description)
+INSERT INTO AllergyTypes(AllergyName,Description)
 VALUES
-    ('1', 'No Allergy', 'Default Allergy'),
-    ('2', 'Peanuts', 'Peanuts'),
-    ('3', 'Mold', 'Mold'),
-    ('4', 'Penicillin ', 'Penicillin '),
-    ('5', 'Pollen', 'Pollen'),
-    ('6', 'Eggs', 'Eggs'),
-    ('7', 'Dairy', 'Dairy'),
-    ('8', 'Tree Nuts', 'Tree Nuts'),
-    ('9', 'Dust', 'Dust'),
-    ('10', 'Grass', 'Grass');
+    ('No Allergy', 'Default Allergy'),
+    ('Peanuts', 'Peanuts'),
+    ('Mold', 'Mold'),
+    ('Penicillin ', 'Penicillin '),
+    ('Pollen', 'Pollen'),
+    ('Eggs', 'Eggs'),
+    ('Dairy', 'Dairy'),
+    ('Tree Nuts', 'Tree Nuts'),
+    ('Dust', 'Dust'),
+    ('Grass', 'Grass');
 	
 INSERT INTO PatientAllergies (Patientid,AllergyTypeId)
 VALUES
@@ -78,25 +80,25 @@ VALUES
     ('1016', '9'),
     ('1018', '10');
 	
-INSERT INTO RolesLookup (RoleId,RoleType)
+INSERT INTO RolesLookup (RoleType)
 VALUES
-    ('1', 'Admin'),
-    ('2', 'Doctor'),
-    ('3', 'Paitent');
+    ('Admin'),
+    ('Doctor'),
+    ('Paitent');
 	
-INSERT INTO Specialization (SpecializationID,SpecializationName)
+INSERT INTO Specialization (SpecializationName)
 VALUES
-    ('0', 'General'),
-    ('1', 'Allergy and immunology'),
-    ('2', 'Anesthesiology'),
-    ('3', 'Dermatology'),
-    ('4', 'Radiology'),
-    ('5', 'Dentist'),
-    ('6', 'Internal medicine'),
-    ('7', 'Surgery'),
-    ('8', 'Psychiatry'),
-    ('9', 'Pediatrics'),
-    ('10', 'Neruology');
+    ('General'),
+    ('Allergy and immunology'),
+    ('Anesthesiology'),
+    ('Dermatology'),
+    ('Radiology'),
+    ('Dentist'),
+    ('Internal medicine'),
+    ('Surgery'),
+    ('Psychiatry'),
+    ('Pediatrics'),
+    ( 'Neruology');
 	
 INSERT INTO DoctorSpecialization (DoctorID,SpecializationID)
 VALUES

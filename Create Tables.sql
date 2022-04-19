@@ -212,7 +212,7 @@ CREATE TABLE LoginInformation
           FOREIGN KEY(userid) REFERENCES PatientPersonalInformation(patientid),
           FOREIGN KEY(userid) REFERENCES AdminInformation(adminid),
           FOREIGN KEY(userid) REFERENCES DoctorInformation(doctorid),
-     [password] VARCHAR(255) NOT NULL, --EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
+     password VARCHAR(255) NOT NULL, --EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
      roleid   INT NOT NULL FOREIGN KEY REFERENCES dbo.RolesLookup(roleid)
   ); 
 

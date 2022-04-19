@@ -1,18 +1,22 @@
 -- -- --to execute
--- EXECUTE [dbo].[RegisterPatient]
---     433456
--- 	,'Asha'
--- 	,'Padmashetti'
--- 	,'1994-12-01'
--- 	,'1234qwert'
---     ,'Street 13'
---   ,'MA'
---   ,'Boston'
---   ,01223
---   ,8989888384
---   ,'a.p@gmail.com'
---   ,'Neha'
---   ,4567345678
+--  EXECUTE [dbo].[RegisterPatient]
+--      43345614
+--  	,'Asha'
+--  	,'Padmashetti'
+--  	,'1994-12-01'
+--  	,'1234qwert'
+--      ,'Street 13'
+--    ,'MA'
+--    ,'Boston'
+--    ,01223
+--    ,8989888384
+--    ,'a.p@gmail.com'
+--    ,'Neha'
+--    ,4567345678,
+--    1,
+--    1
+
+   GO;
 
 
 CREATE OR ALTER PROCEDURE RegisterPatient(
@@ -83,6 +87,7 @@ BEGIN
 
             -- EXECUTE Allergy, Wishlist, Insurance
             EXECUTE INSERT_UPDATE_PATIENT_PRIMARY_CONTACT @primarycontactfullname, @primarycontactnumber, @UserID
+            EXECUTE INSERT_Patient_Pharmacy_Wishlist @UserID,@PharmacyID
             SET @output =  @UserID;
         END
     END;

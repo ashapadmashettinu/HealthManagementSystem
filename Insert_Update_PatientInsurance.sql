@@ -21,5 +21,6 @@ IF EXISTS(SELECT 1 FROM PatientInsurance WHERE PatientID = @patientid)
 		   where PatientID = @patientid
 
 		   ELSE 
-			INSERT INTO PatientPrimaryContact VALUES (@insuranceid,@patientid, @provider);
+			INSERT INTO PatientInsurance (InsuranceId,PatientId,InsuranceProvider)
+				VALUES (@insuranceid,@patientid, @provider);
 END

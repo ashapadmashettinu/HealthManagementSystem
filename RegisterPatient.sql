@@ -1,6 +1,6 @@
--- --to execute
+-- -- --to execute
 -- EXECUTE [dbo].[RegisterPatient]
---     434333456
+--     433456
 -- 	,'Asha'
 -- 	,'Padmashetti'
 -- 	,'1994-12-01'
@@ -11,6 +11,9 @@
 --   ,01223
 --   ,8989888384
 --   ,'a.p@gmail.com'
+--   ,'Neha'
+--   ,4567345678
+
 
 CREATE OR ALTER PROCEDURE RegisterPatient(
     @VerificationID as int,
@@ -24,7 +27,9 @@ CREATE OR ALTER PROCEDURE RegisterPatient(
     @ZipCode as int,
     @PhoneNumber as BigInt,
     @emailid as VARCHAR(255) = null,
-    @PharmacyID int =null,
+    @primarycontactfullname varchar(255)= null,
+    @primarycontactnumber bigint = null,
+     @PharmacyID int =null,
     @AllergyId int =null
 )
 AS
@@ -77,7 +82,7 @@ BEGIN
             --INSERT INTO LoginSessions(UserID, Time)VALUES(@UserID, getDate())
 
             -- EXECUTE Allergy, Wishlist, Insurance
-
+            EXECUTE INSERT_UPDATE_PATIENT_PRIMARY_CONTACT @primarycontactfullname, @primarycontactnumber, @UserID
             SET @output =  @UserID;
         END
     END;
@@ -90,3 +95,5 @@ BEGIN CATCH
 
 END CATCH; 
 END
+
+

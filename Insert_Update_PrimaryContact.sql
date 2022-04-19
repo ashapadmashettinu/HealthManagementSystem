@@ -15,11 +15,14 @@ AS BEGIN
 --SET @outputpatientid = @patientid
 
 IF EXISTS(SELECT 1 FROM PatientPrimaryContact WHERE PatientID = @patientid)
+BEGIN
 		   UPDATE PatientPrimaryContact 
 		   set fullname = ISNULL(@fullname, fullname),
 			   phonenumber = ISNULL(@phonenumber, phonenumber)
 		   where PatientID = @patientid
-
+END
 		   ELSE 
-			INSERT INTO PatientPrimaryContact VALUES (@patientid,@fullname, @phonenumber);
+		   BEGIN
+			INSERT INTO PatientPrimaryContact (PatientId, FullName, PhoneNumber) VALUES (@patientid, @fullname, @phonenumber);
+			END
 END

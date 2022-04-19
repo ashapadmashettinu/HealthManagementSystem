@@ -176,7 +176,7 @@ Create table [Address]
 	AddressLine2 varchar(255),
 	City varchar(255) not null,
 	State varchar(255) not null,
-	Country varchar(255) not null,
+	Country varchar(255),
 	ZipCode int not null,
 	PhoneNumber BIGINT not null,
 	EmailID varchar(255)

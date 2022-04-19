@@ -212,7 +212,7 @@ Create Table LoginInformation
 		references AdminInformation(AdminID),
 	Foreign key(UserID) 
 		references DoctorInformation(DoctorID),
-	password varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
+	[password] varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
 	RoleID int NOT NULL FOREIGN KEY
         REFERENCES dbo.RolesLookup(RoleID)
 	);

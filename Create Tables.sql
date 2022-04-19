@@ -13,12 +13,12 @@ PatientWhishlistPharmacy
 AllergyTypes
 PatientAllergies
 Roles Lookup
-Login Information
-Login Sessions
 AppointmentType
 Address
 AdminInformation
 DoctorInformation
+Login Information
+Login Sessions
 Appointments
 PatientVisitHistory
 DoctorSpecialization
@@ -53,232 +53,221 @@ DECRYPTION BY CERTIFICATE HMSCertificate;
 USE HMS;
 
 ----Do not remove this statements--------------
-drop table if exists PatientInsurance;
-drop table if exists PatientPrimaryContact;
-drop table if exists PatientWishlistPharmacy;
-drop table if exists PharmacyLookup;
-drop table if exists PatientAllergies;
-drop table if exists AllergyTypes;
-drop table if exists LoginSessions;
-drop table if exists LoginInformation;
-drop table if exists RolesLookup;
-drop table if exists PatientVisitHistory;
-drop table if exists Appointments;
-drop table if exists AppointmentType;
-drop table if exists PatientPersonalInformation;
-drop table if exists AdminInformation;
-drop table if exists DoctorInformation;
-drop table if exists PatientAddress;
-drop table if exists DoctorSpecialization;
-drop table if exists Specialization;
-drop table if exists [Address];
+DROP TABLE IF EXISTS PatientInsurance;
+DROP TABLE IF EXISTS PatientPrimaryContact;
+DROP TABLE IF EXISTS PatientWishlistPharmacy;
+DROP TABLE IF EXISTS PharmacyLookup;
+DROP TABLE IF EXISTS PatientAllergies;
+DROP TABLE IF EXISTS AllergyTypes;
+DROP TABLE IF EXISTS LoginSessions;
+DROP TABLE IF EXISTS LoginInformation;
+DROP TABLE IF EXISTS RolesLookup;
+DROP TABLE IF EXISTS Appointments;
+DROP TABLE IF EXISTS AppointmentType;
+DROP TABLE IF EXISTS PatientPersonalInformation;
+DROP TABLE IF EXISTS AdminInformation;
+DROP TABLE IF EXISTS DoctorInformation;
+DROP TABLE IF EXISTS PatientAddress;
+DROP TABLE IF EXISTS PatientVisitHistory;
+DROP TABLE IF EXISTS DoctorSpecialization;
+DROP TABLE IF EXISTS Specialization;
+DROP TABLE IF EXISTS [Address];
 
 
-Create table PatientAddress 
-	(
-	AddressID int not null IDENTITY primary key,
-	Street varchar(255) not null,
-	[State] varchar(255) not null,
-	City varchar(255) not null,
-	ZipCode int not null,
-	PhoneNumber BigInt not null,
-	EmailID varchar(255)
-	);
+CREATE TABLE PatientAddress 
+  (
+     addressid   INT IDENTITY NOT NULL PRIMARY KEY,
+     street      VARCHAR(255) NOT NULL,
+     [state]     VARCHAR(255) NOT NULL,
+     city        VARCHAR(255) NOT NULL,
+     zipcode     INT NOT NULL,
+     phonenumber BIGINT NOT NULL,
+     emailid     VARCHAR(255) NOT NULL
+  ); 
 
 
-create Table PatientPersonalInformation
-	(
-	PatientID int not null IDENTITY primary key,
-	VerificationID int not null,  --Must be unique
-	FirstName varchar(255) not null,
-	LastName varchar(255) not null,
-	DOB date not null,
-	AddressID int  NOT NULL FOREIGN KEY
-        REFERENCES dbo.PatientAddress(AddressID)
-	);
+CREATE TABLE PatientPersonalInformation
+  (
+     patientid      INT NOT NULL PRIMARY KEY,
+     verificationid INT NOT NULL,--Must be unique
+     firstname      VARCHAR(255) NOT NULL,
+     lastname       VARCHAR(255) NOT NULL,
+     dob            DATE NOT NULL,
+     addressid      INT NOT NULL 
+	 FOREIGN KEY REFERENCES dbo.patientaddress(addressid)
+  ); 
 
 
-
-Create Table PatientInsurance
-	(
-	InsuranceID int not null IDENTITY primary key,
-	PatientID int Foreign key 
-		references PatientPersonalInformation(PatientID),
-	InsuranceProvider varchar(255) not null
-	);
+CREATE TABLE PatientInsurance
+  (
+     insuranceid       INT IDENTITY NOT NULL PRIMARY KEY,
+     patientid         INT FOREIGN KEY REFERENCES patientpersonalinformation(
+     patientid),
+     insuranceprovider VARCHAR(255) NOT NULL
+  ); 
+	
+CREATE TABLE PatientPrimaryContact
+  (
+     patientid   INT IDENTITY NOT NULL PRIMARY KEY,
+          FOREIGN KEY(patientid) REFERENCES PatientPersonalInformation(patientid
+     ),
+     fullname    VARCHAR(255) NOT NULL,
+     phonenumber INT NOT NULL
+  ); 
 	
 
-Create table PatientPrimaryContact
-	(
-	PatientID int NOT NULL Primary Key,
-	Foreign key(PatientID) 
-		references PatientPersonalInformation(PatientID),
-	FullName varchar(255) not null,
-	PhoneNumber BIGINT not null
-	);
+CREATE TABLE PharmacyLookup
+  (
+     pharmacyid         INT NOT NULL PRIMARY KEY,
+     pharmacyname       VARCHAR(255) NOT NULL,
+     pharmacystreetname VARCHAR(255) NOT NULL,
+     pharmacystate      VARCHAR(255) NOT NULL,
+     pharmacycity       VARCHAR(255) NOT NULL,
+     pharmacyzip        INT NOT NULL,
+     contactnumber      INT NOT NULL
+  );
+
+
+CREATE TABLE PatientWishlistPharmacy
+  (
+     patientid  INT IDENTITY NOT NULL,
+     pharmacyid INT NOT NULL,
+     PRIMARY KEY CLUSTERED ( patientid, pharmacyid),
+     FOREIGN KEY(patientid) REFERENCES PatientPersonalInformation(patientid),
+     FOREIGN KEY(pharmacyid) REFERENCES PharmacyLookup(pharmacyid)
+  ); 
 	
 
-Create Table PharmacyLookup
-	(
-	PharmacyID int not null IDENTITY primary key,
-	PharmacyName varchar(255) not null,
-	PharmacyStreetName varchar(255) not null,
-	PharmacyState varchar(255) not null,
-	PharmacyCity varchar(255) not null,
-	PharmacyZip int not null,
-	ContactNumber BIGINT not null
-	);
+CREATE TABLE AllergyTypes
+  (
+     allergytypeid INT IDENTITY NOT NULL PRIMARY KEY,
+     allergyname   VARCHAR(255) NOT NULL,
+     [description] VARCHAR(255) NOT NULL
+  ); 
 
 
-Create Table PatientWishlistPharmacy
-    (
-	PatientID int NOT NULL,
-	PharmacyID int NOT NULL,
-	PRIMARY KEY CLUSTERED ( PatientID, PharmacyID),
-	Foreign key(PatientID)
-		references PatientPersonalInformation(PatientID),
-	Foreign key(PharmacyID)
-		references PharmacyLookup(PharmacyID)
-	);
-	
-
-Create table AllergyTypes
-	(
-	AllergyTypeID int not null IDENTITY primary key,
-	Allergyname varchar(255) not null,
-	[Description] varchar(255) not null
-	);
+CREATE TABLE PatientAllergies
+  (
+     patientid     INT NOT NULL,
+     allergytypeid INT NOT NULL,
+     PRIMARY KEY CLUSTERED ( patientid, allergytypeid),
+     FOREIGN KEY(patientid) REFERENCES PatientPersonalInformation(patientid),
+     FOREIGN KEY(allergytypeid) REFERENCES AllergyTypes(allergytypeid)
+  ); 
 
 
-create table PatientAllergies
-	(
-	PatientID int NOT NULL,
-	AllergyTypeID int NOT NULL,
-	PRIMARY KEY CLUSTERED ( PatientID, AllergyTypeID),
-	Foreign key(PatientID)
-		references PatientPersonalInformation(PatientID),
-	Foreign key(AllergyTypeID)
-		references AllergyTypes(AllergyTypeID)
-	);
+CREATE TABLE RolesLookup
+  (
+     roleid   INT IDENTITY NOT NULL PRIMARY KEY,
+     roletype VARCHAR(255) NOT NULL
+  ); 
+
+CREATE TABLE AppointmentType
+  (
+     appointmenttypeid INT NOT NULL PRIMARY KEY,
+     appointmenttype   VARCHAR(255),
+     durationmin       INT
+  ); 
 
 
-Create Table RolesLookup
-	(
-	RoleID Int not null IDENTITY primary key,
-	RoleType varchar(255) not null
-	);
+CREATE TABLE [Address]
+  (
+     addressid    INT IDENTITY NOT NULL PRIMARY KEY,
+     street       VARCHAR(255) NOT NULL,
+     addressline2 VARCHAR(255) NOT NULL,
+     city         VARCHAR(255) NOT NULL,
+     state        VARCHAR(255) NOT NULL,
+     country      VARCHAR(255) NOT NULL,
+     zipcode      INT NOT NULL,
+     phonenumber  INT NOT NULL,
+     emailid      VARCHAR(255) NOT NULL
+  ); 
 
 
-Create table [Address] 
-	(
-	AddressID int not null IDENTITY primary key,
-	Street varchar(255) not null,
-	AddressLine2 varchar(255),
-	City varchar(255) not null,
-	State varchar(255) not null,
-	Country varchar(255),
-	ZipCode int not null,
-	PhoneNumber BIGINT not null,
-	EmailID varchar(255)
-	);
-
-
-Create table AdminInformation
-	(
-	AdminID int not null IDENTITY primary key,
-	FirstName varchar(255) not null,
-	LastName varchar(255) not null,
-	DOB Date,
-    AddressID int  NOT NULL FOREIGN KEY
-        REFERENCES dbo.Address(AddressID)
-    );
+CREATE TABLE AdminInformation
+  (
+     adminid   INT NOT NULL PRIMARY KEY,
+     firstname VARCHAR(255) NOT NULL,
+     lastname  VARCHAR(255) NOT NULL,
+     dob       DATE,
+     addressid INT NOT NULL 
+	 FOREIGN KEY REFERENCES dbo.Address(addressid)
+  ); 
   	
 
-Create table DoctorInformation
-	(
-	DoctorID int not null IDENTITY primary key,
-	FirstName varchar(255) not null,
-	LastName varchar(255) not null,
-	DOB date,
-	AddressID int  NOT NULL FOREIGN KEY
-        REFERENCES dbo.Address(AddressID)
-	);
+CREATE TABLE DoctorInformation
+  (
+     doctorid  INT NOT NULL PRIMARY KEY,
+     firstname VARCHAR(255) NOT NULL,
+     lastname  VARCHAR(255) NOT NULL,
+     dob       DATE,
+     addressid INT NOT NULL 
+	 FOREIGN KEY REFERENCES dbo.Address(addressid)
+  ); 
 
 
-Create Table LoginInformation
-	(
-	UserID int not null IDENTITY primary key,
-	Foreign key(UserID) 
-		references PatientPersonalInformation(PatientID),
-	Foreign key(UserID) 
-		references AdminInformation(AdminID),
-	Foreign key(UserID) 
-		references DoctorInformation(DoctorID),
-	password varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
-	RoleID int NOT NULL FOREIGN KEY
-        REFERENCES dbo.RolesLookup(RoleID)
-	);
+CREATE TABLE LoginInformation
+  (
+     userid   INT NOT NULL PRIMARY KEY,
+          FOREIGN KEY(userid) REFERENCES PatientPersonalInformation(patientid),
+          FOREIGN KEY(userid) REFERENCES AdminInformation(adminid),
+          FOREIGN KEY(userid) REFERENCES DoctorInformation(doctorid),
+     password VARCHAR(255) NOT NULL, --EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
+     roleid   INT NOT NULL FOREIGN KEY REFERENCES dbo.RolesLookup(roleid)
+  ); 
 
 
-Create Table LoginSessions
-	(
-	SessionID int not null IDENTITY primary key,
-	SessionTime Date  not null,
-	UserID int NOT NULL FOREIGN KEY
-        REFERENCES dbo.LoginInformation(UserID)
-	);
+CREATE TABLE LoginSessions
+  (
+     sessionid   INT IDENTITY NOT NULL PRIMARY KEY,
+     sessiontime DATE NOT NULL,
+     userid      INT NOT NULL 
+	 FOREIGN KEY REFERENCES dbo.LoginInformation(userid)
+  ); 
 	
 
-Create Table AppointmentType
-	(
-	AppointmentTypeID int not null IDENTITY primary key,
-	AppointmentType varchar(255),
-	DurationMin int
-	);
 
+CREATE TABLE Appointments
+  (
+     appointmentid      INT IDENTITY NOT NULL PRIMARY KEY,
+     patientid          INT 
+	 FOREIGN KEY REFERENCES PatientPersonalInformation(patientid),
+     doctorid           INT 
+	 FOREIGN KEY REFERENCES DoctorInformation(doctorid),
+     appointmenttypeid  INT 
+		FOREIGN KEY REFERENCES AppointmentType(appointmenttypeid),
+     problemdescription VARCHAR (255) NOT NULL,
+     appointmentdate    DATE,
+     appointmenttime    TIME
+  ); 
+	
+CREATE TABLE PatientVisitHistory
+  (
+     appointmentid   INT 
+		FOREIGN KEY REFERENCES Appointments(appointmentid),
+     temperature     FLOAT,
+     bloodpressure   INT,
+     heartrate       INT,
+     respiratoryrate INT,
+     height          FLOAT,
+     [weight]        FLOAT
+  ); 
 
-Create table Appointments
-	(
-	 AppointmentID int not null IDENTITY primary key,
-	 PatientID int Foreign key 
-		references PatientPersonalInformation(PatientID),
-     DoctorID int Foreign key 
-		references  DoctorInformation(DoctorID),
-	 AppointmentTypeID int Foreign key
-		references AppointmentType(AppointmentTypeID),
-	 ProblemDescription varchar (255) not null,
-	 AppointmentDate Date,
-	 AppointmentTime Time
-	 );
-
-Create Table PatientVisitHistory
-	 (
-	 AppointmentID int Foreign key
-		references Appointments(AppointmentID),
-	 Temperature float Not null,
-	 BloodPressure int, 
-	 HeartRate int, 
-	 RespiratoryRate int,
-	 Height float, 
-	 [Weight] float
-	 );
 
 	
-Create Table Specialization
-	(
-	SpecializationID int not null IDENTITY primary key,
-	SpecializationName varchar(255) not null
-	);
+CREATE TABLE Specialization
+  (
+     specializationid   INT IDENTITY NOT NULL PRIMARY KEY,
+     specializationname VARCHAR(255) NOT NULL
+  );
+
+CREATE TABLE DoctorSpecialization
+  (
+     doctorid         INT NOT NULL,
+     specializationid INT NOT NULL,
+     PRIMARY KEY CLUSTERED ( doctorid, specializationid),
+     FOREIGN KEY(doctorid) REFERENCES DoctorInformation(doctorid),
+     FOREIGN KEY(specializationid) REFERENCES Specialization(specializationid)
+  ); 
 
 
-Create table DoctorSpecialization
-	(
-	DoctorID int NOT NULL,
-	SpecializationID int NOT NULL,
-	PRIMARY KEY CLUSTERED ( DoctorID, SpecializationID),
-	Foreign key(DoctorID)
-		references DoctorInformation(DoctorID),
-	Foreign key(SpecializationID)
-		references Specialization(SpecializationID)
-	);
-	

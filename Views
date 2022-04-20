@@ -1,0 +1,46 @@
+--- Number of patients with insurance vs. without
+
+Create view [Patient Insurance] as
+select 
+	case 
+		when insuranceprovider is null then 'No Insurance'
+		else insuranceprovider 
+	end as 'Insurance',
+	count(distinct ppi.PatientID) as 'Count of Insurance'
+from PatientPersonalInformation ppi
+left join PatientInsurance pi
+	on ppi.PatientID = pi.PatientID
+group by insuranceprovider 
+
+
+--- Top Pharma
+
+Create view [Top Pharma] as
+select pi.insuranceprovider, 
+	count(distinct ppi.PatientID) as 'Count of Insurance'
+from PatientPersonalInformation ppi
+left join PatientInsurance pi
+	on ppi.PatientID = pi.PatientID
+group by insuranceprovider 
+
+
+--- Busiest Doctor/Number of patients per doctor based on month or year
+
+Create view [Patient Count] as
+
+select AppointmentMonth, [Asha Padmashetti] 
+from
+(select datename(month,appointmentdate) as 'AppointmentMonth',
+	firstname + SPACE(1) + lastname as 'Doctor',
+	a.patientid
+from appointments a
+join DoctorInformation d
+	on a.DoctorID = d.DoctorID) as SourceTable
+PIVOT 
+	(count(PatientID)
+	for Doctor in ([Asha Padmashetti])) as PivotTable
+ORDER BY MONTH([AppointmentMonth]+ ' 1 2019');
+
+
+
+

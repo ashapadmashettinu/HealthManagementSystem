@@ -1,24 +1,32 @@
+USE HMS;
+GO
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
 -- -- --to execute
---  EXECUTE [dbo].[RegisterPatient]
---      43345614
---  	,'Asha'
---  	,'Padmashetti'
---  	,'1994-12-01'
---  	,'1234qwert'
---      ,'Street 13'
---    ,'MA'
---    ,'Boston'
---    ,01223
---    ,8989888384
---    ,'a.p@gmail.com'
---    ,'Neha'
---    ,4567345678,
---    1,
---    1
+  EXECUTE [dbo].[RegisterPatient]
+      43345685
+      ,'Tess'
+      ,'Demarco'
+      ,'1994-12-01'
+      ,'1234qwert'
+      ,'Street 13'
+      ,'MA'
+      ,'Boston'
+      ,01223
+      ,8989888384
+      ,'a.p@gmail.com'
+      ,'Sonal'
+      ,4567345678,
+      1,
+      1,
+      'New York Life'
 
-   GO;
+--drop procedure if exists RegisterPatient;
 
-
+GO
 CREATE OR ALTER PROCEDURE RegisterPatient(
     @VerificationID as int,
     @FirstName as varchar(255),
@@ -33,8 +41,9 @@ CREATE OR ALTER PROCEDURE RegisterPatient(
     @emailid as VARCHAR(255) = null,
     @primarycontactfullname varchar(255)= null,
     @primarycontactnumber bigint = null,
-     @PharmacyID int =null,
-    @AllergyId int =null
+    @PharmacyID int =null,
+    @AllergyId int =null,
+    @insurancprovider as VARCHAR(255) = null
 )
 AS
 BEGIN
@@ -88,6 +97,8 @@ BEGIN
             -- EXECUTE Allergy, Wishlist, Insurance
             EXECUTE INSERT_UPDATE_PATIENT_PRIMARY_CONTACT @primarycontactfullname, @primarycontactnumber, @UserID
             EXECUTE INSERT_Patient_Pharmacy_Wishlist @UserID,@PharmacyID
+	    EXECUTE INSERT_UPDATE_PATIENT_INSURANCE @UserID, @insurancprovider
+            EXECUTE INSERT_Patient_Allergies @UserID,@AllergyId
             SET @output =  @UserID;
         END
     END;
@@ -100,5 +111,3 @@ BEGIN CATCH
 
 END CATCH; 
 END
-
-

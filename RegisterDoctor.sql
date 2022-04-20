@@ -1,6 +1,6 @@
 EXECUTE [dbo].[RegisterDoctor]
-    12345
-	,'Asha'
+    -- 12345,
+	'Asha'
 	,'Padmashetti'
 	,'1994-12-01'
 	,'124abert'
@@ -13,7 +13,7 @@ EXECUTE [dbo].[RegisterDoctor]
   ,'a.p@gmail.com'
 
 CREATE OR ALTER PROCEDURE RegisterDoctor(
-    @VerificationID as int,
+    -- @VerificationID as int,
     @FirstName as varchar(255),
     @LastName as varchar(255),
     @DOB as date,
@@ -41,9 +41,13 @@ BEGIN TRY
 
     IF ISNULL(@AddressID, '') != ''
     BEGIN
+
+        IF NOT exists(select 1 from DoctorInformation d join [address] a on a.AddressID=d.AddressID 
+        where a.PhoneNumber = @PhoneNumber and d.FirstName=@FirstName and d.LastName = @LastName)
+        BEGIN 
         INSERT INTO DoctorInformation
-            (FirstName, LastName, DOB, AddressID, VerificationID)
-        values(@FirstName, @LastName, @DOB, @AddressID, @VerificationID)
+            (FirstName, LastName, DOB, AddressID) -- VerificationID)
+        values(@FirstName, @LastName, @DOB, @AddressID) --   , @VerificationID)
 
         SET @UserID = SCOPE_IDENTITY()
 
@@ -75,8 +79,12 @@ BEGIN TRY
         --INSERT INTO LoginSessions(UserID, Time)VALUES(@UserID, getDate())
 
         SET @output =  @UserID;
+
+        END
+        ELSE
+            select 'User Exists!' as 'Message'
     END
-     select @output
+     select @output as UserId
 END TRY  
 BEGIN CATCH  
     SELECT ERROR_MESSAGE() AS ErrorMessage;  

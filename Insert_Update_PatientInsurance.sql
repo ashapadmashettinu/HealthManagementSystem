@@ -6,21 +6,18 @@ GO
 
 CREATE or ALTER PROCEDURE INSERT_UPDATE_PATIENT_INSURANCE
 (
-	
-	@insuranceid as int,
 	@patientid as int,
-	@provider as varchar(255),
+	@provider as varchar(255)
 )
 AS BEGIN
 
 
 IF EXISTS(SELECT 1 FROM PatientInsurance WHERE PatientID = @patientid)
 		   UPDATE PatientInsurance 
-		   set InsuranceId = ISNULL(@insuranceid, InsuranceId),
-			   InsuranceProvider = ISNULL(@provider, InsuranceProvider)
+		   set InsuranceProvider = ISNULL(@provider, InsuranceProvider)
 		   where PatientID = @patientid
 
 		   ELSE 
-			INSERT INTO PatientInsurance (InsuranceId,PatientId,InsuranceProvider)
-				VALUES (@insuranceid,@patientid, @provider);
+			INSERT INTO PatientInsurance (PatientId,InsuranceProvider)
+				VALUES (@patientid, @provider);
 END

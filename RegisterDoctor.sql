@@ -1,16 +1,19 @@
--- EXECUTE [dbo].[RegisterDoctor]
--- 	'Asha'
--- 	,'Padmashetti'
--- 	,'1994-12-01'
--- 	,'124abert'
---     ,'Street 13'
---   ,'MA'
---   ,'Boston'
---   ,01223
---   ,8989888384
---   ,'a.p@gmail.com'
+EXECUTE [dbo].[RegisterDoctor]
+    12345
+	,'Asha'
+	,'Padmashetti'
+	,'1994-12-01'
+	,'124abert'
+    ,'Street 13'
+  ,'MA'
+  ,'Boston'
+  ,01223
+  ,8989888384
+  ,'General'
+  ,'a.p@gmail.com'
 
 CREATE OR ALTER PROCEDURE RegisterDoctor(
+    @VerificationID as int,
     @FirstName as varchar(255),
     @LastName as varchar(255),
     @DOB as date,
@@ -20,6 +23,7 @@ CREATE OR ALTER PROCEDURE RegisterDoctor(
     @City as varchar(255),
     @ZipCode as int,
     @PhoneNumber as bigint,
+    @specialization varchar(100) = 'General',
     @emailid as VARCHAR(255) = null,
     @addressLine2 as VARCHAR(255) = null,
     @country as VARCHAR(255) = null
@@ -32,19 +36,34 @@ BEGIN TRY
     -- Checks if user exists and skips the insertion. 
     DECLARE @AddressID int;
     DECLARE @RoleId int;
+    DECLARE @specializationID int;
     EXECUTE dbo.INSERT_UPDATE_ADDRESS @Street, @State, @City, @ZipCode, @PhoneNumber, @emailid, @addressLine2, @Country, null, @AddressID output
 
     IF ISNULL(@AddressID, '') != ''
     BEGIN
         INSERT INTO DoctorInformation
-            (FirstName, LastName, DOB, AddressID)
-        values(@FirstName, @LastName, @DOB, @AddressID)
+            (FirstName, LastName, DOB, AddressID, VerificationID)
+        values(@FirstName, @LastName, @DOB, @AddressID, @VerificationID)
 
         SET @UserID = SCOPE_IDENTITY()
+
+        if isnull(@specialization,'') = ''
+        BEGIN
+            set @specialization = 'General'
+        END
+        select @specializationID = SpecializationID from Specialization where SpecializationName = @specialization
+        
+        If ISNULL(@specializationID,'') !=''
+        BEGIN
+            INSERT INTO DoctorSpecialization (DoctorID,SpecializationID)
+            VALUES (@UserID, @specializationID);
+        END
+
 
         SELECT @RoleId = RoleId
         from RolesLookup
         where RoleType = 'Doctor';
+
 
         OPEN SYMMETRIC KEY HMSSymmetricKey
         DECRYPTION BY CERTIFICATE HMSCertificate;
@@ -62,3 +81,5 @@ END TRY
 BEGIN CATCH  
     SELECT ERROR_MESSAGE() AS ErrorMessage;  
 END CATCH;  
+
+

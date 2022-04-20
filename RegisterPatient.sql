@@ -43,7 +43,7 @@ CREATE OR ALTER PROCEDURE RegisterPatient(
     @primarycontactnumber bigint = null,
     @PharmacyID int =null,
     @AllergyId int =null,
-	@insurancprovider as VARCHAR(255) = null
+    @insurancprovider as VARCHAR(255) = null
 )
 AS
 BEGIN
@@ -97,7 +97,7 @@ BEGIN
             -- EXECUTE Allergy, Wishlist, Insurance
             EXECUTE INSERT_UPDATE_PATIENT_PRIMARY_CONTACT @primarycontactfullname, @primarycontactnumber, @UserID
             EXECUTE INSERT_Patient_Pharmacy_Wishlist @UserID,@PharmacyID
-	        EXECUTE INSERT_UPDATE_PATIENT_INSURANCE @UserID, @insurancprovider
+	    EXECUTE INSERT_UPDATE_PATIENT_INSURANCE @UserID, @insurancprovider
             EXECUTE INSERT_Patient_Allergies @UserID,@AllergyId
             SET @output =  @UserID;
         END

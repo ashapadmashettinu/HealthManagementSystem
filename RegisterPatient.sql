@@ -1,28 +1,32 @@
-use hms;
+USE HMS;
+GO
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+
 
 -- -- --to execute
   EXECUTE [dbo].[RegisterPatient]
-      43345645
-  	,'Tess'
-  	,'Demarco'
-  	,'1994-12-01'
-  	,'1234qwert'
+      43345685
+      ,'Tess'
+      ,'Demarco'
+      ,'1994-12-01'
+      ,'1234qwert'
       ,'Street 13'
-    ,'MA'
-    ,'Boston'
-    ,01223
-    ,8989888384
-    ,'a.p@gmail.com'
-    ,'Sonal'
-    ,4567345678,
-    1,
-    1,
-	'New York Life'
-
-   GO;
+      ,'MA'
+      ,'Boston'
+      ,01223
+      ,8989888384
+      ,'a.p@gmail.com'
+      ,'Sonal'
+      ,4567345678,
+      1,
+      1,
+      'New York Life'
 
 --drop procedure if exists RegisterPatient;
 
+GO
 CREATE OR ALTER PROCEDURE RegisterPatient(
     @VerificationID as int,
     @FirstName as varchar(255),

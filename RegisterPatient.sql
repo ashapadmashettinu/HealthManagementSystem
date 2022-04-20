@@ -88,6 +88,7 @@ BEGIN
             -- EXECUTE Allergy, Wishlist, Insurance
             EXECUTE INSERT_UPDATE_PATIENT_PRIMARY_CONTACT @primarycontactfullname, @primarycontactnumber, @UserID
             EXECUTE INSERT_Patient_Pharmacy_Wishlist @UserID,@PharmacyID
+            EXECUTE INSERT_Patient_Allergies @UserID,@AllergyId
             SET @output =  @UserID;
         END
     END;

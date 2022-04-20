@@ -13,7 +13,8 @@ AS BEGIN
 DECLARE @output VARCHAR(20);
 BEGIN
         SET @output=@PatientID;
-        INSERT INTO PatientAllergies VALUES (@PatientID,@AllergyTypeID);
+        INSERT INTO PatientAllergies(PatientID, AllergyTypeID)
+		VALUES (@PatientID,@AllergyTypeID);
         select @output as UserID
 END
 END

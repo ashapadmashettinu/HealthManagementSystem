@@ -6,7 +6,7 @@ GO
 
 CREATE or ALTER PROCEDURE INSERT_Patient_Pharmacy_Wishlist
 (
-	 @PatientID INT,
+     @PatientID INT,
      @PharmacyID INT
 )
 AS BEGIN
@@ -20,7 +20,8 @@ IF EXISTS(SELECT 1 FROM PatientWishlistPharmacy WHERE PatientID = @patientid)
 ELSE 
     BEGIN
 	SET @output='I am here';
-            INSERT INTO PatientWishlistPharmacy VALUES (@PatientID,@PharmacyID);
-			select @output as UserID
+            INSERT INTO PatientWishlistPharmacy(PatientID,PharmacyID)
+	    	VALUES (@PatientID,@PharmacyID);
+	    select @output as UserID
     END
 END

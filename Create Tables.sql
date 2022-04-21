@@ -53,24 +53,28 @@ DECRYPTION BY CERTIFICATE HMSCertificate;
 USE HMS;
 
 ----Do not remove this statements--------------
+
+/* Lookup tables (Static Data) */
+--drop table if exists PharmacyLookup;
+-- drop table if exists Specialization;
+-- drop table if exists AllergyTypes;
+-- drop table if exists RolesLookup;
+-- drop table if exists AppointmentType;
+
 drop table if exists PatientInsurance;
 drop table if exists PatientPrimaryContact;
 drop table if exists PatientWishlistPharmacy;
-drop table if exists PharmacyLookup;
 drop table if exists PatientAllergies;
-drop table if exists AllergyTypes;
 drop table if exists LoginSessions;
 drop table if exists LoginInformation;
-drop table if exists RolesLookup;
 drop table if exists PatientVisitHistory;
 drop table if exists Appointments;
-drop table if exists AppointmentType;
 drop table if exists PatientPersonalInformation;
 drop table if exists AdminInformation;
 drop table if exists DoctorInformation;
 drop table if exists PatientAddress;
 drop table if exists DoctorSpecialization;
-drop table if exists Specialization;
+
 drop table if exists [Address];
 
 

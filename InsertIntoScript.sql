@@ -1,5 +1,27 @@
 USE HMS;
 
+INSERT INTO Specialization (SpecializationName)
+VALUES
+    ('General'),
+    ('Allergy and immunology'),
+    ('Anesthesiology'),
+    ('Dermatology'),
+    ('Radiology'),
+    ('Dentist'),
+    ('Internal medicine'),
+    ('Surgery'),
+    ('Psychiatry'),
+    ('Pediatrics'),
+    ( 'Neruology');
+
+	
+INSERT INTO RolesLookup (RoleType)
+VALUES
+    ('Admin'),
+    ('Doctor'),
+    ('Paitent');
+	
+
 INSERT INTO PharmacyLookup (PharmacyName ,PharmacyStreetName ,PharmacyState ,PharmacyCity ,PharmacyZip ,ContactNumber)
 VALUES
     ('CVS', '91 Seaport Blvd', 'MA', 'Boston', '02210', '8573504646'),
@@ -12,6 +34,27 @@ VALUES
     ('Walgreens', '24 School St', 'MA', 'Boston', '02108', '6173728156'),
     ('Walgreens', '841 Boylston St', 'MA', 'Boston', '02116', '6172361692'),
     ('Default Pharmacy', '587 Boylston St', 'MA', 'Boston', '02116', '6174378414');
+
+
+	
+INSERT INTO AllergyTypes(AllergyName,Description)
+VALUES
+    ('No Allergy', 'Default Allergy'),
+    ('Peanuts', 'Peanuts'),
+    ('Mold', 'Mold'),
+    ('Penicillin ', 'Penicillin '),
+    ('Pollen', 'Pollen'),
+    ('Eggs', 'Eggs'),
+    ('Dairy', 'Dairy'),
+    ('Tree Nuts', 'Tree Nuts'),
+    ('Dust', 'Dust'),
+    ('Grass', 'Grass');
+ 
+ INSERT INTO AppointmentType(AppointmentType, DurationMin)
+ VALUES
+ ('Out Patient Visit',20),
+ ('Minor Surgery', 60),
+ ('Major Surgery', 60)
 	
 INSERT INTO PatientInsurance (InsuranceId,PatientId,InsuranceProvider)
 VALUES
@@ -53,19 +96,7 @@ VALUES
     ('1014', '3'),
     ('1016', '2'),
     ('1018', '1');
-	
-INSERT INTO AllergyTypes(AllergyName,Description)
-VALUES
-    ('No Allergy', 'Default Allergy'),
-    ('Peanuts', 'Peanuts'),
-    ('Mold', 'Mold'),
-    ('Penicillin ', 'Penicillin '),
-    ('Pollen', 'Pollen'),
-    ('Eggs', 'Eggs'),
-    ('Dairy', 'Dairy'),
-    ('Tree Nuts', 'Tree Nuts'),
-    ('Dust', 'Dust'),
-    ('Grass', 'Grass');
+
 	
 INSERT INTO PatientAllergies (Patientid,AllergyTypeId)
 VALUES
@@ -79,27 +110,7 @@ VALUES
     ('1014', '8'),
     ('1016', '9'),
     ('1018', '10');
-	
-INSERT INTO RolesLookup (RoleType)
-VALUES
-    ('Admin'),
-    ('Doctor'),
-    ('Paitent');
-	
-INSERT INTO Specialization (SpecializationName)
-VALUES
-    ('General'),
-    ('Allergy and immunology'),
-    ('Anesthesiology'),
-    ('Dermatology'),
-    ('Radiology'),
-    ('Dentist'),
-    ('Internal medicine'),
-    ('Surgery'),
-    ('Psychiatry'),
-    ('Pediatrics'),
-    ( 'Neruology');
-	
+
 INSERT INTO DoctorSpecialization (DoctorID,SpecializationID)
 VALUES
     ('1001', '10'),

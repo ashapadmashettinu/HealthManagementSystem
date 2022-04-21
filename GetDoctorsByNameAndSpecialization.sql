@@ -14,7 +14,7 @@ RETURNS @table TABLE
 )
 AS BEGIN
     INSERT into @table
-    SELECT d.DoctorID, ds.SpecializationID, FIRSTName, LASTName, SpecializationName
+    SELECT d.DoctorID,  FIRSTName, LASTName, ds.SpecializationID, SpecializationName
         FROM DoctorInformation d
         JOIN DoctorSpecialization ds on d.DoctorID = ds.DoctorID
         JOIN Specialization s on s.SpecializationID = ds.SpecializationID

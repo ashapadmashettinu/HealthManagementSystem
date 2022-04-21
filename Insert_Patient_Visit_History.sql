@@ -35,8 +35,8 @@ DECLARE @output VARCHAR(20);
             HeartRate = ISNULL(@HeartRate, HeartRate),
             RespiratoryRate = ISNULL(@RespiratoryRate, RespiratoryRate),
 			Height = ISNULL(@Height, Height),
-			Weight = ISNULL(@Weight, Weight)
-            where appointmentID = @appointmentID
+			[Weight] = ISNULL(@Weight, Weight)
+            where AppointmentID = @AppointmentID
             select @output as ApointmentID
         END
 	ELSE

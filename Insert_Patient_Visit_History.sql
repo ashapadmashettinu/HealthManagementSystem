@@ -25,7 +25,7 @@ CREATE or ALTER PROCEDURE INSERT_Patient_Visit_History
 AS BEGIN
 DECLARE @output VARCHAR(20);
 
-	IF Isnull(@appointmentID,'') != '' or exists(select 1 from PatientVisitHistory where AppointmentId = @AppointmentID)
+	IF Exists(select 1 from PatientVisitHistory where AppointmentId = @AppointmentID)
        BEGIN
 			SET @output= @AppointmentID;
             update PatientVisitHistory 

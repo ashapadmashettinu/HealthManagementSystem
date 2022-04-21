@@ -1,11 +1,9 @@
 --Example  of Execution
-
+-- --select * from  uf_GetDoctorsByNameAndSpecialization('General', 'Ash') -- gets the doctor id and spec id.
 -- DECLARE @outputa int
-
--- -- -- TODO: Set parameter values here.
 -- EXECUTE [dbo].[Insert_Update_Appointment] 
 --    1
---   ,1006
+--   ,1
 --   ,'General'
 --   ,'Fever'
 --   ,'2022-05-28'

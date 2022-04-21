@@ -92,7 +92,7 @@ Create table PatientAddress
 
 create Table PatientPersonalInformation
 	(
-	PatientID int not null IDENTITY primary key,
+	PatientID int not null IDENTITY(1000,2) primary key,
 	VerificationID int not null,  --Must be unique
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
@@ -188,7 +188,7 @@ Create table [Address]
 
 Create table AdminInformation
 	(
-	AdminID int not null IDENTITY primary key,
+	AdminID int not null IDENTITY(11,1) primary key,
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
 	DOB Date,
@@ -199,7 +199,7 @@ Create table AdminInformation
 
 Create table DoctorInformation
 	(
-	DoctorID int not null IDENTITY primary key,
+	DoctorID int not null IDENTITY(1001, 2) primary key,
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
 	DOB date,
@@ -210,12 +210,6 @@ Create table DoctorInformation
 Create Table LoginInformation
 	(
 	UserID int not null primary key,
-	Foreign key(UserID) 
-		references PatientPersonalInformation(PatientID),
-	Foreign key(UserID) 
-		references AdminInformation(AdminID),
-	Foreign key(UserID) 
-		references DoctorInformation(DoctorID),
 	[password] varchar(255) not null,  -- EncryptByKey(Key_GUID(N'HMSSymmetricKey'), convert(varbinary, password))
 	RoleID int NOT NULL FOREIGN KEY
         REFERENCES dbo.RolesLookup(RoleID)

@@ -1,16 +1,16 @@
-EXECUTE [dbo].[RegisterDoctor]
-    -- 12345,
-	'Asha'
-	,'Padmashetti'
-	,'1994-12-01'
-	,'124abert'
-    ,'Street 13'
-  ,'MA'
-  ,'Boston'
-  ,01223
-  ,8989888384
-  ,'General'
-  ,'a.p@gmail.com'
+-- EXECUTE [dbo].[RegisterDoctor]
+--     -- 12345,
+-- 	'Asha'
+-- 	,'Padmashetti'
+-- 	,'1994-12-01'
+-- 	,'124abert'
+--     ,'Street 13'
+--   ,'MA'
+--   ,'Boston'
+--   ,01223
+--   ,8989888384
+--   ,'General'
+--   ,'a.p@gmail.com'
 
 CREATE OR ALTER PROCEDURE RegisterDoctor(
     -- @VerificationID as int,

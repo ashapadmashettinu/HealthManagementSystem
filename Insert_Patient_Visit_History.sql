@@ -2,14 +2,14 @@ USE HMS;
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON;
-EXECUTE [dbo].[INSERT_Patient_Visit_History]
-      4
-      ,101
-      ,150
-      ,120
-      ,6
-      ,5.8
-      ,59.75
+-- EXECUTE [dbo].[INSERT_Patient_Visit_History]
+--       1
+--       ,101
+--       ,150
+--       ,120
+--       ,6
+--       ,5.8
+--       ,59.75
 GO;
 
 CREATE or ALTER PROCEDURE INSERT_Patient_Visit_History

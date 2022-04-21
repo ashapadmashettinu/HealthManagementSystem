@@ -78,6 +78,50 @@ drop table if exists DoctorSpecialization;
 drop table if exists [Address];
 
 
+/* look up tables */
+
+Create Table PharmacyLookup
+	(
+	PharmacyID int not null IDENTITY primary key,
+	PharmacyName varchar(255) not null,
+	PharmacyStreetName varchar(255) not null,
+	PharmacyState varchar(255) not null,
+	PharmacyCity varchar(255) not null,
+	PharmacyZip int not null,
+	ContactNumber BIGINT not null
+	);
+
+
+Create table AllergyTypes
+	(
+	AllergyTypeID int not null IDENTITY primary key,
+	Allergyname varchar(255) not null,
+	[Description] varchar(255) not null
+	);
+
+
+Create Table RolesLookup
+	(
+	RoleID Int not null IDENTITY primary key,
+	RoleType varchar(255) not null
+	);
+
+Create Table Specialization
+	(
+	SpecializationID int not null IDENTITY primary key,
+	SpecializationName varchar(255) not null
+	);
+
+Create Table AppointmentType
+	(
+	AppointmentTypeID int not null IDENTITY primary key,
+	AppointmentType varchar(255),
+	DurationMin int
+	);
+
+/* End of lookups */
+
+
 Create table PatientAddress 
 	(
 	AddressID int not null IDENTITY primary key,
@@ -121,18 +165,6 @@ Create table PatientPrimaryContact
 	);
 	
 
-Create Table PharmacyLookup
-	(
-	PharmacyID int not null IDENTITY primary key,
-	PharmacyName varchar(255) not null,
-	PharmacyStreetName varchar(255) not null,
-	PharmacyState varchar(255) not null,
-	PharmacyCity varchar(255) not null,
-	PharmacyZip int not null,
-	ContactNumber BIGINT not null
-	);
-
-
 Create Table PatientWishlistPharmacy
     (
 	PatientID int NOT NULL,
@@ -145,14 +177,6 @@ Create Table PatientWishlistPharmacy
 	);
 	
 
-Create table AllergyTypes
-	(
-	AllergyTypeID int not null IDENTITY primary key,
-	Allergyname varchar(255) not null,
-	[Description] varchar(255) not null
-	);
-
-
 create table PatientAllergies
 	(
 	PatientID int NOT NULL,
@@ -162,13 +186,6 @@ create table PatientAllergies
 		references PatientPersonalInformation(PatientID),
 	Foreign key(AllergyTypeID)
 		references AllergyTypes(AllergyTypeID)
-	);
-
-
-Create Table RolesLookup
-	(
-	RoleID Int not null IDENTITY primary key,
-	RoleType varchar(255) not null
 	);
 
 
@@ -225,14 +242,6 @@ Create Table LoginSessions
 	);
 	
 
-Create Table AppointmentType
-	(
-	AppointmentTypeID int not null IDENTITY primary key,
-	AppointmentType varchar(255),
-	DurationMin int
-	);
-
-
 Create table Appointments
 	(
 	 AppointmentID int not null IDENTITY primary key,
@@ -260,12 +269,6 @@ Create Table PatientVisitHistory
 	 );
 
 	
-Create Table Specialization
-	(
-	SpecializationID int not null IDENTITY primary key,
-	SpecializationName varchar(255) not null
-	);
-
 
 Create table DoctorSpecialization
 	(
@@ -278,3 +281,4 @@ Create table DoctorSpecialization
 		references Specialization(SpecializationID)
 	);
 	
+

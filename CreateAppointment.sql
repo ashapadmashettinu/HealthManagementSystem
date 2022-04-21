@@ -2,8 +2,8 @@
 -- --select * from  uf_GetDoctorsByNameAndSpecialization('General', 'Ash') -- gets the doctor id and spec id.
 -- DECLARE @outputa int
 -- EXECUTE [dbo].[Insert_Update_Appointment] 
---    1
---   ,1
+--    1000
+--   ,1001
 --   ,'Out Patient Visit'
 --   ,'Fever'
 --   ,'2022-05-28'

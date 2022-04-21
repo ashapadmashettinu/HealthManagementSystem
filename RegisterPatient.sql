@@ -6,23 +6,23 @@ SET QUOTED_IDENTIFIER ON;
 
 
 -- -- --to execute
-  EXECUTE [dbo].[RegisterPatient]
-      43345685
-      ,'Tess'
-      ,'Demarco'
-      ,'1994-12-01'
-      ,'1234qwert'
-      ,'Street 13'
-      ,'MA'
-      ,'Boston'
-      ,01223
-      ,8989888384
-      ,'a.p@gmail.com'
-      ,'Sonal'
-      ,4567345678,
-      1,
-      1,
-      'New York Life'
+--   EXECUTE [dbo].[RegisterPatient]
+--       43345685
+--       ,'Tess'
+--       ,'Demarco'
+--       ,'1994-12-01'
+--       ,'1234qwert'
+--       ,'Street 13'
+--       ,'MA'
+--       ,'Boston'
+--       ,01223
+--       ,8989888384
+--       ,'a.p@gmail.com'
+--       ,'Sonal'
+--       ,4567345678,
+--       1,
+--       1,
+--       'New York Life'
 
 --drop procedure if exists RegisterPatient;
 

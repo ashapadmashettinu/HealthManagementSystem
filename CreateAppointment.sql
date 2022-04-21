@@ -4,7 +4,7 @@
 -- EXECUTE [dbo].[Insert_Update_Appointment] 
 --    1
 --   ,1
---   ,'General'
+--   ,'Out Patient Visit'
 --   ,'Fever'
 --   ,'2022-05-28'
 --   ,'13:00'
@@ -14,7 +14,7 @@
 CREATE or ALTER PROCEDURE Insert_Update_Appointment
 (   @patientid  as varchar(255),
 	@doctorID as varchar(255),
-	@appointmenttype as varchar(255) = 'General',
+	@appointmenttype as varchar(255) = 'Out Patient Visit',
     @problemdescription as varchar(255),
     @Date as date,
     @time as time,

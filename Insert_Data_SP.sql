@@ -9,9 +9,9 @@ EXECUTE [dbo].[RegisterPatient]
 EXECUTE [dbo].[RegisterPatient]
 	65847, 'Lissi', 'Haglinton', '1964-09-11', '9Erf0QE4Zs2U', 'Lighthouse Bay', 'Illinois', 'Schaumburg', '60193', 8474180638, 'lhaglinton3@illinois.edu', 'Lissi Haglinton', 5208114461, 10, 2, 'Lubowitz-Cummings';
 EXECUTE [dbo].[RegisterPatient]
-	07220, 'Maryanna', 'De Zamudio', '2000-05-25', 'RSZbj6hAI', 'Jenna', 'Florida', 'Miami', '33129', 7865969303, 'mde4@msn.com', 'Maryanna De Zamudio', 9102294396, 3, 7, 'Hermiston and Sons';
+	17220, 'Maryanna', 'De Zamudio', '2000-05-25', 'RSZbj6hAI', 'Jenna', 'Florida', 'Miami', '33129', 7865969303, 'mde4@msn.com', 'Maryanna De Zamudio', 9102294396, 3, 7, 'Hermiston and Sons';
 EXECUTE [dbo].[RegisterPatient]
-	06168, 'Shani', 'Linebarger', '1974-11-30', 'PA5E1O', 'Chinook', 'Indiana', 'Fort Wayne', '46852', 2607686951, 'slinebarger5@samsung.com', 'Shani Linebarger', 2021665175, 6, 4, 'Romaguera-Bechtelar';
+	26168, 'Shani', 'Linebarger', '1974-11-30', 'PA5E1O', 'Chinook', 'Indiana', 'Fort Wayne', '46852', 2607686951, 'slinebarger5@samsung.com', 'Shani Linebarger', 2021665175, 6, 4, 'Romaguera-Bechtelar';
 EXECUTE [dbo].[RegisterPatient]
 	74569, 'Ava', 'Bennike', '1976-07-16', 'v6YClOzl', 'Kipling', 'Florida', 'Bonita Springs', '34135', 9419348313, 'abennike6@marriott.com', 'Ava Bennike', 4341494277, 9, 9, 'Rohan-Koelpin';
 EXECUTE [dbo].[RegisterPatient]
@@ -19,7 +19,7 @@ EXECUTE [dbo].[RegisterPatient]
 EXECUTE [dbo].[RegisterPatient]
 	82821, 'Bambi', 'Hasluck', '1978-02-02', '2FA8T5T', 'Erie', 'Idaho', 'Boise', '83757', 2083332704, 'bhasluck8@homestead.com', 'Bambi Hasluck', 9018493826, 1, 4, 'Rohan, Marquardt and Lockman';
 EXECUTE [dbo].[RegisterPatient]
-	08850, 'Vida', 'Yegorshin', '1998-03-31', 'DxfxyT', 'Dryden', 'District of Columbia', 'Washington', '20036', 2021193169, 'vyegorshin9@icio.us', 'Vida Yegorshin', 8623251130, 10, 5, 'Ebert, Homenick and Braun';
+	58850, 'Vida', 'Yegorshin', '1998-03-31', 'DxfxyT', 'Dryden', 'District of Columbia', 'Washington', '20036', 2021193169, 'vyegorshin9@icio.us', 'Vida Yegorshin', 8623251130, 10, 5, 'Ebert, Homenick and Braun';
 EXECUTE [dbo].[RegisterPatient]
 	17589, 'Adriena', 'Imrie', '1970-10-06', 'YjYPUMjEcZq', 'Packers', 'South Carolina', 'Spartanburg', '29319', 8646209029, 'aimriea@storify.com', 'Adriena Imrie', 2081172656, 9, 5, 'Aufderhar and Sons';
 EXECUTE [dbo].[RegisterPatient]

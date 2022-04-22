@@ -1,16 +1,24 @@
 --- Number of patients with insurance vs. without
 
 Create view [Patient Insurance] as
+
+with temp as (
 select 
 	case 
-		when insuranceprovider is null then 'No Insurance'
-		else insuranceprovider 
-	end as 'Insurance',
-	count(distinct ppi.PatientID) as 'Count of Insurance'
+		when InsuranceProvider is null then 'No Insurance'
+		else 'Insurance' 
+	end as 'InsuranceCheck',
+	count(distinct ppi.PatientID) as 'CountofInsurance'
 from PatientPersonalInformation ppi
 left join PatientInsurance pi
 	on ppi.PatientID = pi.PatientID
-group by insuranceprovider 
+	group by InsuranceProvider)
+	
+select InsuranceCheck, 
+	sum(CountofInsurance) as 'Count of Insurance'
+from temp
+group by insurancecheck
+
 
 
 --- Top Pharma
@@ -27,7 +35,20 @@ group by insuranceprovider
 --- Busiest Doctor/Number of patients per doctor based on month or year
 
 Create view [Patient Count] as
-select Doctor, [May]
+
+select Doctor, 
+	[Jan],
+	[Feb],
+	[Mar],
+	[Apr],
+	[May],
+	[Jun],
+	[Jul],
+	[Aug],
+	[Sep],
+	[Oct],
+	[Nov],
+	[Dec]
 from
 (select datename(month,appointmentdate) as 'AppointmentMonth',
 	firstname + SPACE(1) + lastname as 'Doctor',
@@ -37,4 +58,47 @@ join DoctorInformation d
 	on a.DoctorID = d.DoctorID) as SourceTable
 PIVOT 
 	(count(PatientID)
-	for AppointmentMonth  in ([May])) as PivotTable
+	for AppointmentMonth  in ([Jan],
+	[Feb],
+	[Mar],
+	[Apr],
+	[May],
+	[Jun],
+	[Jul],
+	[Aug],
+	[Sep],
+	[Oct],
+	[Nov],
+	[Dec])) as PivotTable
+
+
+--- Number of Patients with Allergies/Fever/Blood Pressure/HeartRate
+	
+Create view [Patient Health] as 
+
+
+select 
+	case when Temperature > 98.6 then 'Fever'
+		else 'No Fever'
+	end as 'Fever',
+	
+	case when at.AllergyTypeID = 1 then 'No Allergies'
+		else 'Has Allergies'
+	end as 'Allergies',
+	
+	case when BloodPressure between 120 and 129 then 'Normal Blood Pressure'
+	 	when BloodPressure > 129 then 'High Blood Pressure'
+		else 'Low Blood Pressure'
+	end as 'Blood Pressure', 
+
+	case when HeartRate between 55 and 100 then 'Normal Heart Rate'
+		else 'Tachycardia'
+	end as 'Heart Rate' 
+
+from PatientVisitHistory pvh 
+join Appointments a 
+	on pvh.AppointmentID = a.AppointmentID 
+join PatientAllergies pa 
+	on a.patientid = pa.PatientID 
+join AllergyTypes at
+	on pa.AllergyTypeID = at.AllergyTypeID 

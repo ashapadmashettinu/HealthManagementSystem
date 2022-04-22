@@ -109,5 +109,5 @@ EXECUTE [dbo].[INSERT_Patient_Visit_History]
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
 	5, 98, 139, 158, 100, 4.8, 98;
 
-select * from PatientVisitHistory;
-select * from Appointments;
+--select * from PatientVisitHistory;
+--select * from Appointments;

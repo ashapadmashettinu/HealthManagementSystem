@@ -952,21 +952,21 @@ END
 EXECUTE [dbo].[RegisterPatient]
 	25212, 'Alexi', 'Gemson', '1987-11-16', 'fP0UbM', 'Erie', 'Georgia', 'Atlanta', '30323', 6784497970, 'agemson0@bravesites.com', 'Alexi Gemson', 2105784182, 3, 8, 'Bode-Schuster';
 EXECUTE [dbo].[RegisterPatient]
-	35851, 'Sadella', 'Cubberley', '1996-11-20', 'cX2ZCJHCosM', 'Warrior', 'Texas', 'Amarillo', '79116', 8063366118, 'scubberley1@yale.edu', 'Sadella Cubberley', 5022582792, 4, 1, 'Prohaska Group';
+	35851, 'Sadella', 'Cubberley', '1996-11-20', 'cX2ZCJHCosM', 'Warrior', 'Texas', 'Amarillo', '79116', 8063366118, 'scubberley1@yale.edu', 'Sadella Cubberley', 5022582792, 4, 1, 'Bode-Schuster';
 EXECUTE [dbo].[RegisterPatient]
 	65587, 'Bibby', 'Ferreiro', '1993-11-03', 'ujX1W8', 'Sutherland', 'Florida', 'Naples', '34102', 9419596207, 'bferreiro2@blogger.com', 'Bibby Ferreiro', 5638956520, 2, 5, 'Daugherty, Roob and Dicki';
 EXECUTE [dbo].[RegisterPatient]
-	65847, 'Lissi', 'Haglinton', '1964-09-11', '9Erf0QE4Zs2U', 'Lighthouse Bay', 'Illinois', 'Schaumburg', '60193', 8474180638, 'lhaglinton3@illinois.edu', 'Lissi Haglinton', 5208114461, 10, 2, 'Lubowitz-Cummings';
+	65847, 'Lissi', 'Haglinton', '1964-09-11', '9Erf0QE4Zs2U', 'Lighthouse Bay', 'Illinois', 'Schaumburg', '60193', 8474180638, 'lhaglinton3@illinois.edu', 'Lissi Haglinton', 5208114461, 10, 2, 'Rohan-Koelpin';
 EXECUTE [dbo].[RegisterPatient]
 	07220, 'Maryanna', 'De Zamudio', '2000-05-25', 'RSZbj6hAI', 'Jenna', 'Florida', 'Miami', '33129', 7865969303, 'mde4@msn.com', 'Maryanna De Zamudio', 9102294396, 3, 7, 'Hermiston and Sons';
 EXECUTE [dbo].[RegisterPatient]
-	06168, 'Shani', 'Linebarger', '1974-11-30', 'PA5E1O', 'Chinook', 'Indiana', 'Fort Wayne', '46852', 2607686951, 'slinebarger5@samsung.com', 'Shani Linebarger', 2021665175, 6, 4, 'Romaguera-Bechtelar';
+	06168, 'Shani', 'Linebarger', '1974-11-30', 'PA5E1O', 'Chinook', 'Indiana', 'Fort Wayne', '46852', 2607686951, 'slinebarger5@samsung.com', 'Shani Linebarger', 2021665175, 6, 4, 'Daugherty, Roob and Dicki';
 EXECUTE [dbo].[RegisterPatient]
 	74569, 'Ava', 'Bennike', '1976-07-16', 'v6YClOzl', 'Kipling', 'Florida', 'Bonita Springs', '34135', 9419348313, 'abennike6@marriott.com', 'Ava Bennike', 4341494277, 9, 9, 'Rohan-Koelpin';
 EXECUTE [dbo].[RegisterPatient]
 	96607, 'Nessy', 'Martinets', '1993-08-04', 'FEFgYHh', 'Fisk', 'Utah', 'Salt Lake City', '84115', 8011916388, 'nmartinets7@smugmug.com', 'Nessy Martinets', 2534154725, 10, 2, 'Veum, Crona and Ullrich';
 EXECUTE [dbo].[RegisterPatient]
-	82821, 'Bambi', 'Hasluck', '1978-02-02', '2FA8T5T', 'Erie', 'Idaho', 'Boise', '83757', 2083332704, 'bhasluck8@homestead.com', 'Bambi Hasluck', 9018493826, 1, 4, 'Rohan, Marquardt and Lockman';
+	82821, 'Bambi', 'Hasluck', '1978-02-02', '2FA8T5T', 'Erie', 'Idaho', 'Boise', '83757', 2083332704, 'bhasluck8@homestead.com', 'Bambi Hasluck', 9018493826, 1, 4, 'Rohan-Koelpin';
 EXECUTE [dbo].[RegisterPatient]
 	08850, 'Vida', 'Yegorshin', '1998-03-31', 'DxfxyT', 'Dryden', 'District of Columbia', 'Washington', '20036', 2021193169, 'vyegorshin9@icio.us', 'Vida Yegorshin', 8623251130, 10, 5, 'Ebert, Homenick and Braun';
 EXECUTE [dbo].[RegisterPatient]
@@ -1121,16 +1121,17 @@ EXECUTE [dbo].[INSERT_Patient_Visit_History]
 
 --Start of views
 
-Create VIEW CurrentWeekUpcommingAppointments as
-select  *
+Create or alter VIEW CurrentWeekUpcommingAppointments as
+select  top 5 *
        from Appointments
        where year(AppointmentDate) = year(getdate()) 
-               and datepart(wk, AppointmentDate) = datepart(wk, getdate()) 
+               and datepart(wk, AppointmentDate) >= datepart(wk, getdate()) 
                and datepart(d, AppointmentDate) >= datepart(d, getdate())
 
+--select * from CurrentWeekUpcommingAppointments
 
 --Get the number os patient with and without insurance
-Create view [Patient Insurance] as
+Create or alter view [Patient Insurance] as
 with temp as (
 select 
 	case 
@@ -1148,11 +1149,16 @@ select InsuranceCheck,
 from temp
 group by insurancecheck
 
+
+--select * from PatientInsurance
+--delete from PatientInsurance where insuranceid=16
+
 --select * from [Patient Insurance]
+
 
 -- Top insurance 
 
-Create view [Top insurance] as
+Create or alter view [Top insurance] as
 select pi.insuranceprovider, 
 	count(distinct ppi.PatientID) as 'Count of Insurance'
 from PatientPersonalInformation ppi
@@ -1160,26 +1166,27 @@ left join PatientInsurance pi
 	on ppi.PatientID = pi.PatientID
 group by insuranceprovider 
 
-select * from [Top insurance]
+
+select * from [Top insurance] order by [Count of Insurance]
 --- Busiest Doctor/Number of patients per doctor based on month or year
 
 --select * from [Patient Count]
-Create view [Patient Count] as
+Create or alter view [Patient Count] as
 select Doctor, 
-	[Jan],
-	[Feb],
-	[Mar],
-	[Apr],
-	[May],
-	[Jun],
-	[Jul],
-	[Aug],
-	[Sep],
-	[Oct],
-	[Nov],
-	[Dec]
+	[January],
+    [February],
+    [March],
+    [April],
+    [May],
+    [June],
+    [July],
+    [August],
+    [September],
+    [October],
+    [November],
+    [December]
 from
-(select left(month,appointmentdate) as 'AppointmentMonth',
+(select datename(month,appointmentdate) as 'AppointmentMonth',
 	firstname + SPACE(1) + lastname as 'Doctor',
 	a.patientid
 from appointments a
@@ -1187,18 +1194,18 @@ join DoctorInformation d
 	on a.DoctorID = d.DoctorID) as SourceTable
 PIVOT 
 	(count(PatientID)
-	for AppointmentMonth  in ([Jan],
-	[Feb],
-	[Mar],
-	[Apr],
-	[May],
-	[Jun],
-	[Jul],
-	[Aug],
-	[Sep],
-	[Oct],
-	[Nov],
-	[Dec])) as PivotTable
+	for AppointmentMonth  in ([January],
+    [February],
+    [March],
+    [April],
+    [May],
+    [June],
+    [July],
+    [August],
+    [September],
+    [October],
+    [November],
+    [December])) as PivotTable
 
 --- Number of Patients with Allergies/Fever/Blood Pressure/HeartRate
 	

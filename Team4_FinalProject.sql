@@ -932,11 +932,11 @@ BEGIN
         INSERT INTO LoginSessions(UserID, SessionTime) Values(@UserID, getDate())
         
         select UserId
-        --, p.FirstName, P.LastName, P.DOB
+        , isnull(isnull(p.FirstName, d.FirstName), a.FirstName) as [FirstName], isnull(isnull(P.LastName, d.LastName),a.LastName) as [LastName], isnull(isnull(P.DOB, d.DOB), a.DOB) as [DOB]
         from LoginInformation l 
-        -- join PatientPersonalInformation p on p.PatientId = l.UserID
-        -- join DoctorInformation d on d.doctorId =l.UserID
-        -- join AdminInformation a on a.AdminId =l.UserID
+        left join PatientPersonalInformation p on p.PatientId = l.UserID
+        left join DoctorInformation d on d.doctorId =l.UserID
+        left join AdminInformation a on a.AdminId =l.UserID
          where USERId =@UserID
 
     END

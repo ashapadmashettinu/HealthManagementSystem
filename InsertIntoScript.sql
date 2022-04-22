@@ -65,9 +65,6 @@ VALUES
     ('9', 'Dust', 'Dust'),
     ('10', 'Grass', 'Grass');
 
-
-INSERT
-	
 INSERT INTO PatientAllergies (Patientid,AllergyTypeId)
 VALUES
     ('1000', '1'),

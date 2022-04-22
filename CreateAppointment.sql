@@ -1,15 +1,15 @@
 --Example  of Execution
 -- --select * from  uf_GetDoctorsByNameAndSpecialization('General', 'Ash') -- gets the doctor id and spec id.
--- DECLARE @outputa int
--- EXECUTE [dbo].[Insert_Update_Appointment] 
---    1000
---   ,1001
---   ,'Out Patient Visit'
---   ,'Fever'
---   ,'2022-05-28'
---   ,'13:00'
---   ,null
---   ,@outputa OUTPUT
+DECLARE @outputa int
+EXECUTE [dbo].[Insert_Update_Appointment] 
+   1000
+  ,1001
+  ,'Out Patient Visit'
+  ,'Fever'
+  ,'2022-05-28'
+  ,'13:00'
+  ,null
+  ,@outputa OUTPUT
 
 CREATE or ALTER PROCEDURE Insert_Update_Appointment
 (   @patientid  as varchar(255),
@@ -53,3 +53,14 @@ BEGIN TRY
         select ERROR_MESSAGE() as ErrorMessage;
     END CATCH 
 END
+
+
+-- EXECUTE [dbo].[Insert_Update_Appointment] 
+--    1000
+--   ,1001
+--   ,'Out Patient Visit'
+--   ,'Fever'
+--   ,'2022-05-28'
+--   ,'13:00'
+--   ,null
+--   ,@outputa OUTPUT

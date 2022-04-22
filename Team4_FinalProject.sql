@@ -1,3 +1,4 @@
+drop database HMS_Temp
 
 CREATE DATABASE HMS_Temp;
 
@@ -347,6 +348,7 @@ AS BEGIN
         return 
 END
 
+
 --DROP FUNCTION IF EXISTS ufAdminCount;
 create or alter function ufAdminCount ()
 returns int
@@ -406,7 +408,7 @@ IF Exists(select 1 from appointments a
             where a.appointmentid not in (i.AppointmentID))
     BEGIN
         ROLLBACK TRAN;
-        RAISERROR ('The appointment Date and Time with this doctor is not already booked ! Choose a different Doctor or Date or Time', 16, 1);
+        RAISERROR ('The appointment Date and Time with this doctor is already booked ! Choose a different Doctor or Date or Time', 16, 1);
     END
 
 END;
@@ -605,7 +607,6 @@ BEGIN CATCH
     SELECT ERROR_MESSAGE() AS ErrorMessage;  
 END CATCH;  
 
-
 -- INSERT_UPDATE_PATIENT_ADDRESS
 
 CREATE or ALTER PROCEDURE INSERT_UPDATE_PATIENT_ADDRESS
@@ -694,7 +695,7 @@ IF EXISTS(SELECT 1 FROM PatientWishlistPharmacy WHERE PatientID = @patientid)
     END
 ELSE 
     BEGIN
-	SET @output='I am here';
+	
             INSERT INTO PatientWishlistPharmacy(PatientID,PharmacyID)
 	    	VALUES (@PatientID,@PharmacyID);
 	    select @output as UserID
@@ -825,7 +826,7 @@ BEGIN CATCH
     SELECT ERROR_MESSAGE() AS ErrorMessage;  
 
 END CATCH; 
-END
+END;
 
 
 -- Insert_Update_Appointment
@@ -871,8 +872,7 @@ BEGIN TRY
     BEGIN CATCH
         select ERROR_MESSAGE() as ErrorMessage;
     END CATCH 
-END
-
+END;
 
 --INSERT_Patient_Visit_History
 
@@ -926,16 +926,20 @@ BEGIN
     OPEN SYMMETRIC KEY HMSSymmetricKey
             DECRYPTION BY CERTIFICATE HMSCertificate;
 
-
     IF EXISTS(SELECT 1
     FROM LoginInformation
     WHERE USERID = @UserID and DecryptByKey(password) =@password)
     BEGIN
 
         INSERT INTO LoginSessions(UserID, SessionTime) Values(@UserID, getDate())
-
-        select UserId, p.FirstName, P.LastName, P.DOB
-        from LoginInformation l join PatientPersonalInformation p on p.PatientId = l.UserID where USERId =@UserID
+        
+        select UserId
+        --, p.FirstName, P.LastName, P.DOB
+        from LoginInformation l 
+        -- join PatientPersonalInformation p on p.PatientId = l.UserID
+        -- join DoctorInformation d on d.doctorId =l.UserID
+        -- join AdminInformation a on a.AdminId =l.UserID
+         where USERId =@UserID
 
     END
     ELSE
@@ -1009,38 +1013,71 @@ EXECUTE [dbo].[RegisterDoctor]
 	'Ines', 'Yurocjhin', '1994-09-21', 'zhZGc6y5Au', 'Moulton', 'Virginia', 'Norfolk', 23520, 7576858206, 'Allergy and immunology', 'iyurocjhine@thetimes.co.uk', '0 Kensington Lane', 'United States';
 
 
+
+DECLARE @outputa int;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1000, 1001, 'Out Patient Visit', 'Fever', '7/3/2021', '18:55',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1006, 1007, 'General', 'Bodyache', '3/25/2022', '17:58',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1018, 1009, 'General', 'Chestpain', '7/22/2021', '10:12',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1008, 1003, 'General', 'Fever', '4/4/2022', '4:37',null,@outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1004, 1005, 'Out Patient Visit', 'Fever', '9/14/2021', '21:18',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1001, 'Out Patient Visit', 'ENT', '2/2/2022', '10:15',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1009, 'General', 'Fever', '3/14/2022', '21:08',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1000, 1013, 'General', 'ENT', '8/9/2021', '18:42',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1010, 1015, 'Out Patient Visit', 'Pain in the Eye', '9/15/2021', '14:41',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1012, 1019, 'Out Patient Visit', 'Fever', '11/18/2021', '7:37',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1016, 1015, 'Out Patient Visit', 'Headache', '9/4/2021', '11:55',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1020, 1021, 'General', 'Headache', '5/26/2021', '22:46',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1007, 'Out Patient Visit', 'Fever', '2/15/2022', '9:44',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1004, 1003, 'General', 'ThroatPain', '1/6/2022', '18:22',null,@outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1006, 1009, 'Out Patient Visit', 'Fever', '10/8/2021', '20:07',null,@outputa OUTPUT;
+
 -- Inserting Data to the tables
 
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	4, 102, 126, 117, 93, 7.2, 120;
+	1, 102, 126, 117, 93, 7.2, 120;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	11, 98, 139, 163, 93, 6.0, 134;
+	2, 98, 139, 163, 93, 6.0, 134;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	4, 104, 108, 133, 97, 3.0, 66;
+	3, 104, 108, 133, 97, 3.0, 66;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	14, 101, 134, 67, 95, 7.1, 99;
+	4, 101, 134, 67, 95, 7.1, 99;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	15, 100, 112, 118, 93, 8.5, 136;
+	5, 100, 112, 118, 93, 8.5, 136;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	9, 96, 139, 73, 94, 6.0, 96;
+	6, 96, 139, 73, 94, 6.0, 96;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	9, 98, 88, 83, 91, 4.8, 84;
+	7, 98, 88, 83, 91, 4.8, 84;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	9, 99, 112, 58, 92, 7.4, 12;
+	8, 99, 112, 58, 92, 7.4, 12;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	4, 97, 87, 116, 97, 6.8, 113;
+	9, 97, 87, 116, 97, 6.8, 113;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	14, 100, 122, 67, 94, 7.7, 13;
+	10, 100, 122, 67, 94, 7.7, 13;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	15, 102, 84, 103, 96, 3.9, 82;
+	11, 102, 84, 103, 96, 3.9, 82;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	1, 101, 129, 71, 98, 2.9, 144;
+	12, 101, 129, 71, 98, 2.9, 144;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	12, 101, 103, 66, 91, 4.3, 104;
+	13, 101, 103, 66, 91, 4.3, 104;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	8, 103, 91, 82, 92, 4.1, 135;
+	14, 103, 91, 82, 92, 4.1, 135;
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
-	5, 98, 139, 158, 100, 4.8, 98;
+	15, 98, 139, 158, 100, 4.8, 98;
 
 
 --Workflow Start
@@ -1092,6 +1129,7 @@ select  *
                and datepart(d, AppointmentDate) >= datepart(d, getdate())
 
 
+--Get the number os patient with and without insurance
 Create view [Patient Insurance] as
 with temp as (
 select 
@@ -1110,11 +1148,11 @@ select InsuranceCheck,
 from temp
 group by insurancecheck
 
+--select * from [Patient Insurance]
 
+-- Top insurance 
 
---- Top Pharma
-
-Create view [Top Pharma] as
+Create view [Top insurance] as
 select pi.insuranceprovider, 
 	count(distinct ppi.PatientID) as 'Count of Insurance'
 from PatientPersonalInformation ppi
@@ -1122,9 +1160,10 @@ left join PatientInsurance pi
 	on ppi.PatientID = pi.PatientID
 group by insuranceprovider 
 
-
+select * from [Top insurance]
 --- Busiest Doctor/Number of patients per doctor based on month or year
 
+--select * from [Patient Count]
 Create view [Patient Count] as
 select Doctor, 
 	[Jan],
@@ -1140,7 +1179,7 @@ select Doctor,
 	[Nov],
 	[Dec]
 from
-(select datename(month,appointmentdate) as 'AppointmentMonth',
+(select left(month,appointmentdate) as 'AppointmentMonth',
 	firstname + SPACE(1) + lastname as 'Doctor',
 	a.patientid
 from appointments a
@@ -1161,11 +1200,10 @@ PIVOT
 	[Nov],
 	[Dec])) as PivotTable
 
-
 --- Number of Patients with Allergies/Fever/Blood Pressure/HeartRate
 	
-Create view [Patient Health] as 
-select 
+Create or alter view [Patient Health] as 
+select a.patientid,
 	case when Temperature > 98.6 then 'Fever'
 		else 'No Fever'
 	end as 'Fever',
@@ -1191,3 +1229,4 @@ join PatientAllergies pa
 join AllergyTypes at
 	on pa.AllergyTypeID = at.AllergyTypeID 
 
+--select * from [Patient Health]

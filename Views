@@ -27,8 +27,7 @@ group by insuranceprovider
 --- Busiest Doctor/Number of patients per doctor based on month or year
 
 Create view [Patient Count] as
-
-select AppointmentMonth, [Asha Padmashetti] 
+select Doctor, [May]
 from
 (select datename(month,appointmentdate) as 'AppointmentMonth',
 	firstname + SPACE(1) + lastname as 'Doctor',
@@ -38,9 +37,4 @@ join DoctorInformation d
 	on a.DoctorID = d.DoctorID) as SourceTable
 PIVOT 
 	(count(PatientID)
-	for Doctor in ([Asha Padmashetti])) as PivotTable
-ORDER BY MONTH([AppointmentMonth]+ ' 1 2019');
-
-
-
-
+	for AppointmentMonth  in ([May])) as PivotTable

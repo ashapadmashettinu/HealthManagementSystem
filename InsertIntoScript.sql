@@ -64,6 +64,9 @@ VALUES
     ('8', 'Tree Nuts', 'Tree Nuts'),
     ('9', 'Dust', 'Dust'),
     ('10', 'Grass', 'Grass');
+
+
+INSERT
 	
 INSERT INTO PatientAllergies (Patientid,AllergyTypeId)
 VALUES

@@ -27,6 +27,7 @@ SET QUOTED_IDENTIFIER ON;
 --drop procedure if exists RegisterPatient;
 
 GO
+
 CREATE OR ALTER PROCEDURE RegisterPatient(
     @VerificationID as int,
     @FirstName as varchar(255),

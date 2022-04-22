@@ -76,3 +76,38 @@ EXECUTE [dbo].[RegisterDoctor]
 --select * from DoctorInformation;
 --Select * from LoginInformation;
 --select * from DoctorSpecialization;
+
+
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	4, 102, 126, 117, 93, 7.2, 120;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	11, 98, 139, 163, 93, 6.0, 134;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	4, 104, 108, 133, 97, 3.0, 66;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	14, 101, 134, 67, 95, 7.1, 99;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	15, 100, 112, 118, 93, 8.5, 136;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	9, 96, 139, 73, 94, 6.0, 96;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	9, 98, 88, 83, 91, 4.8, 84;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	9, 99, 112, 58, 92, 7.4, 12;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	4, 97, 87, 116, 97, 6.8, 113;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	14, 100, 122, 67, 94, 7.7, 13;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	15, 102, 84, 103, 96, 3.9, 82;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	1, 101, 129, 71, 98, 2.9, 144;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	12, 101, 103, 66, 91, 4.3, 104;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	8, 103, 91, 82, 92, 4.1, 135;
+EXECUTE [dbo].[INSERT_Patient_Visit_History]
+	5, 98, 139, 158, 100, 4.8, 98;
+
+select * from PatientVisitHistory;
+select * from Appointments;

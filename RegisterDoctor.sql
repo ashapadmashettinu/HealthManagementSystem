@@ -12,6 +12,8 @@
 --   ,'General'
 --   ,'a.p@gmail.com'
 
+
+
 CREATE OR ALTER PROCEDURE RegisterDoctor(
     -- @VerificationID as int,
     @FirstName as varchar(255),

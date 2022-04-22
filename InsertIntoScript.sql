@@ -82,7 +82,7 @@ INSERT INTO RolesLookup (RoleId,RoleType)
 VALUES
     ('1', 'Admin'),
     ('2', 'Doctor'),
-    ('3', 'Paitent');
+    ('3', 'Patient');
 	
 INSERT INTO Specialization (SpecializationID,SpecializationName)
 VALUES

@@ -1,5 +1,6 @@
-USE HMS;
+use HMS_Team4;
 
+DECLARE @outputa int
 EXECUTE [dbo].[RegisterPatient]
 	25212, 'Alexi', 'Gemson', '1987-11-16', 'fP0UbM', 'Erie', 'Georgia', 'Atlanta', '30323', 6784497970, 'agemson0@bravesites.com', 'Alexi Gemson', 2105784182, 3, 8, 'Bode-Schuster';
 EXECUTE [dbo].[RegisterPatient]
@@ -29,9 +30,9 @@ EXECUTE [dbo].[RegisterPatient]
 EXECUTE [dbo].[RegisterPatient]
 	76991, 'Nora', 'Garioch', '2002-03-10', 'LJEhIBknPq', 'Brown', 'District of Columbia', 'Washington', '20067', 2023814574, 'ngariochd@unc.edu', 'Nora Garioch', 2061944410, 1, 7, 'Dach Inc';
 EXECUTE [dbo].[RegisterPatient]
-	63570, 'Stephine', 'Snoddon', '1972-02-03', 'QGBIYw9gxHl', 'Talisman', 'New York', 'Mount Vernon', '10557', 9145378037, 'ssnoddone@intel.com', 'Stephine Snoddon', 3038457317, 3, 3, 'McCullough-Brekke';
+	63586, 'Stephine', 'Snoddon', '1972-02-03', 'QGBIYw9gxHl', 'Talisman', 'New York', 'Mount Vernon', '10557', 8145378037, 'ssnoddone@intel.com', 'Stephine Snoddon', 5038457317, 3, 3, 'McCullough-Brekke';
 
-
+--delete from PatientAddress;
 --select * from PatientAddress;
 --select * from PatientPersonalInformation;
 --select * from PatientInsurance;
@@ -77,6 +78,40 @@ EXECUTE [dbo].[RegisterDoctor]
 --Select * from LoginInformation;
 --select * from DoctorSpecialization;
 
+DECLARE @outputa int;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1032, 1001, 'Out Patient Visit', 'Fever', '7/3/2021', '18:55',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1034, 1007, 'General', 'Bodyache', '3/25/2022', '17:58',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1018, 1006, 'General', 'Chestpain', '7/22/2021', '10:12',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1008, 1003, 'General', 'Fever', '4/4/2022', '4:37',null,@outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1004, 1005, 'Out Patient Visit', 'Fever', '9/14/2021', '21:18',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1001, 'Out Patient Visit', 'ENT', '2/2/2022', '10:15',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1009, 'General', 'Fever', '3/14/2022', '21:08',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1000, 1013, 'General', 'ENT', '8/9/2021', '18:42',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1010, 1015, 'Out Patient Visit', 'Pain in the Eye', '9/15/2021', '14:41',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1012, 1019, 'Out Patient Visit', 'Fever', '11/18/2021', '7:37',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1016, 1015, 'Out Patient Visit', 'Headache', '9/4/2021', '11:55',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1020, 1021, 'General', 'Headache', '5/26/2021', '22:46',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1002, 1007, 'Out Patient Visit', 'Fever', '2/15/2022', '9:44',null, @outputa OUTPUT;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1004, 1003, 'General', 'ThroatPain', '1/6/2022', '18:22',null;
+EXECUTE [dbo].[Insert_Update_Appointment]
+	1006, 1009, 'Out Patient Visit', 'Fever', '10/8/2021', '20:07',null;
+
+--select * from Appointments
+
 
 EXECUTE [dbo].[INSERT_Patient_Visit_History]
 	4, 102, 126, 117, 93, 7.2, 120;
@@ -110,4 +145,5 @@ EXECUTE [dbo].[INSERT_Patient_Visit_History]
 	5, 98, 139, 158, 100, 4.8, 98;
 
 --select * from PatientVisitHistory;
---select * from Appointments;
+
+

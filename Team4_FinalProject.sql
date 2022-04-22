@@ -1,4 +1,4 @@
-drop database HMS_Temp
+--drop database HMS_Temp;
 
 CREATE DATABASE HMS_Temp;
 
@@ -322,7 +322,7 @@ Begin
 	IF MONTH(@DateOfBirth) = MONTH(getdate()) and day(@DateOfBirth)>day(getdate()) 
 		return datediff(MONTH,@DateOfBirth, getdate())/12 - 1
 	return datediff(MONTH,@DateOfBirth, getdate())/12
-End
+End;
 
 
 --DROP FUNCTION IF EXISTS uf_GetDoctorsByNameAndSpecialization;
@@ -346,7 +346,7 @@ AS BEGIN
         WHERE FirstName like  @doctorName +'%' or LastName like  @doctorName +'%'
         ORDER BY FirstName, LastName;
         return 
-END
+END;
 
 
 --DROP FUNCTION IF EXISTS ufAdminCount;
@@ -357,7 +357,7 @@ begin
    select  @count = count(*)
       from AdminInformation
    return @count;
-end
+end;
 
 
 --DROP FUNCTION IF EXISTS ufUserExists;
@@ -373,7 +373,7 @@ begin
     ELSE
     return 0;
     return 0;
-end
+end;
 
 -- Table Level Constraints/ Triggers / Computational Columns
 
@@ -384,13 +384,13 @@ ADD CONSTRAINT Unique_VerificatioID UNIQUE (VerificationID);
 
 -- computation column (calculating age based on dob)
 ALTER TABLE PatientPersonalInformation
-ADD Age as dbo.calculateAge(DOB)
+ADD Age as dbo.calculateAge(DOB);
 
 ALTER TABLE DoctorInformation
-ADD Age as dbo.calculateAge(DOB)
+ADD Age as dbo.calculateAge(DOB);
 
 ALTER TABLE AdminInformation
-ADD Age as dbo.calculateAge(DOB)
+ADD Age as dbo.calculateAge(DOB);
 
 --table level constraint(admin table to have 99 users)
 alter table AdminInformation add CONSTRAINT Check_Admin_Count_100 CHECK (dbo.ufAdminCount 
@@ -457,8 +457,7 @@ AS BEGIN
             SET @outputaddressid = SCOPE_IDENTITY()
             return @outputaddressid
         END
-END 
-GO
+END ;
 
 
 -- RegisterAdmin
@@ -649,8 +648,7 @@ AS BEGIN
     -- CATCH
     --     return "Error Occured";
     -- END
-END 
-GO
+END ;
 
 
 --INSERT_UPDATE_PATIENT_PRIMARY_CONTACT
@@ -675,7 +673,7 @@ END
 		   BEGIN
 			INSERT INTO PatientPrimaryContact (PatientId, FullName, PhoneNumber) VALUES (@patientid, @fullname, @phonenumber);
 			END
-END
+END;
 
 
 
@@ -700,7 +698,7 @@ ELSE
 	    	VALUES (@PatientID,@PharmacyID);
 	    select @output as UserID
     END
-END
+END;
 
 
 --INSERT_UPDATE_PATIENT_INSURANCE
@@ -721,7 +719,7 @@ IF EXISTS(SELECT 1 FROM PatientInsurance WHERE PatientID = @patientid)
 		   ELSE 
 			INSERT INTO PatientInsurance (PatientId,InsuranceProvider)
 				VALUES (@patientid, @provider);
-END
+END;
 
 
 --INSERT_Patient_Allergies
@@ -738,7 +736,7 @@ BEGIN
 		VALUES (@PatientID,@AllergyTypeID);
         select @output as UserID
 END
-END
+END;
 
 
 ---RegisterPatient
@@ -825,7 +823,7 @@ BEGIN CATCH
     
     SELECT ERROR_MESSAGE() AS ErrorMessage;  
 
-END CATCH; 
+END CATCH
 END;
 
 
@@ -910,7 +908,7 @@ DECLARE @output VARCHAR(20);
 				VALUES (@AppointmentID,@Temperature,@BloodPressure,@HeartRate,@RespiratoryRate,@Height,@Weight);
 				select @output as AppointmentID
 		END
-END
+END;
 
 
 --Login_Verification
@@ -945,7 +943,7 @@ BEGIN
     ELSE
         SELECT Null as [User]
     CLOSE SYMMETRIC KEY HMSSymmetricKey;
-END
+END;
 
 
 

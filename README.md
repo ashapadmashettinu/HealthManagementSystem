@@ -1,3 +1,9 @@
+Database Project - Health Management System
+
+Maintain patients’ medical records to analyze their past conditions for determining the line of treatment. 
+Help facilitate booking an appointment with a doctor based on their availability. 
+
+
 StoredProcedures
 ————————————
 

@@ -1,7 +1,14 @@
-Database Project - Health Management System
+#Database Project - Health Management System
 
+##Business Case:
 Maintain patients’ medical records to analyze their past conditions for determining the line of treatment. 
 Help facilitate booking an appointment with a doctor based on their availability. 
+
+##Business Problems Addressed
+Allow medical offices to make and track doctor’s appointments.
+Allow doctors to track their schedules. 
+Allow patients to request appointments, view test results, and communicate with doctors via an online portal. 
+Create a centralized location to store patient appointment information and history (beneficial to both the patients to view appointments and history as well as doctors to have that information available).
 
 
 StoredProcedures

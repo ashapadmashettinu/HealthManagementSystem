@@ -1,5 +1,3 @@
-# HMS_DMDD
-
 StoredProcedures
 ————————————
 
